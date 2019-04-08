@@ -98,6 +98,11 @@ SmaCCParser class >> fileExtensions [
 	^ Array with: self fileExtension
 ]
 
+{ #category : #accessing }
+SmaCCParser class >> isGLR [ 
+	^ false
+]
+
 { #category : #'instance creation' }
 SmaCCParser class >> on: aStream [
 	| parser scanner |
@@ -205,6 +210,11 @@ SmaCCParser class >> parseWithErrors: aString startingAt: anInteger [
 			ex isResumable
 				ifTrue: [ ex resume ]
 				ifFalse: [ ex signal ] ]
+]
+
+{ #category : #accessing }
+SmaCCParser class >> parserType [ 
+	^ #lr
 ]
 
 { #category : #accessing }

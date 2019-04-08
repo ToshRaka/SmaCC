@@ -215,7 +215,7 @@ SmaCCGrammarCreator >> visitFlagDirective: aFlagDirective [
 	| name |
 	name := aFlagDirective typeToken value.
 	name = 'glr'
-		ifTrue: [ ^ grammar isGLR: true ].
+		ifTrue: [ ^ grammar parserType: #glr ].
 	name = 'ignorecase'
 		ifTrue: [ ^ grammar ignoreCase: true ].
 	name = 'annotate_tokens'
@@ -269,6 +269,11 @@ SmaCCGrammarCreator >> visitNodeNameDirective: aNodeNameDirective [
 	type = 'root'
 		ifTrue: [ ^ (grammar classNamed: name asSymbol) beRoot ].
 	self reportErrorMessage: 'Unknown directive' on: aNodeNameDirective typeToken
+]
+
+{ #category : #visiting }
+SmaCCGrammarCreator >> visitParserTypeDirective: aParserTypeDirective [
+	^ grammar parserType: aParserTypeDirective name value asSymbol
 ]
 
 { #category : #visiting }

@@ -36,6 +36,11 @@ SmaCCGLRParser class >> cachedTrees [
 	^ cachedTrees ifNil: [ cachedTrees := Dictionary new ]
 ]
 
+{ #category : #accessing }
+SmaCCGLRParser class >> isGLR [ 
+	^ true
+]
+
 { #category : #parsing }
 SmaCCGLRParser class >> parseAll: aString startingAt: anInteger [
 	| parser results |
@@ -75,6 +80,11 @@ SmaCCGLRParser class >> parseAndCacheAll: aString startingAt: anInteger [
 { #category : #parsing }
 SmaCCGLRParser class >> parseAndCacheAllPossibleStates: aString [
 	^ (self cachedTrees at: (Array with: aString with: nil) ifAbsentPut: [ self parseAllPossibleStates: aString ]) copy
+]
+
+{ #category : #accessing }
+SmaCCGLRParser class >> parserType [ 
+	^ #glr
 ]
 
 { #category : #accessing }

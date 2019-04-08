@@ -100,6 +100,11 @@ SmaCCDefinitionNodeVisitor >> visitNodeNameDirective: aNodeNameDirective [
 ]
 
 { #category : #generated }
+SmaCCDefinitionNodeVisitor >> visitParserTypeDirective: aParserTypeDirective [
+	^ self visitDirective: aParserTypeDirective
+]
+
+{ #category : #generated }
 SmaCCDefinitionNodeVisitor >> visitPostfixTerm: aPostfixTerm [
 	^ self visitDefinition: aPostfixTerm
 ]

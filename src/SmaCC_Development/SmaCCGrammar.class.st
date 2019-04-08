@@ -17,7 +17,8 @@ Class {
 		'annotateTokens',
 		'errorSymbol',
 		'emptySymbol',
-		'sentinelSymbol'
+		'sentinelSymbol',
+		'parserType'
 	],
 	#classVars : [
 		'IsExpressionMap',
@@ -384,7 +385,7 @@ SmaCCGrammar >> initialize [
 
 { #category : #testing }
 SmaCCGrammar >> isGLR [
-	^ isGLR
+    ^ self parserSuperclass isGLR
 ]
 
 { #category : #'initialize-release' }
@@ -514,6 +515,31 @@ SmaCCGrammar >> nonTerminalSymbolNamed: aString [
 	^ self
 		findSymbolNamed: aString
 		ifAbsentAdd: [ self newNonTerminalSymbolNamed: aString ]
+]
+
+{ #category : #accessing }
+SmaCCGrammar >> parserSuperclass [
+    "Based on the parser type, get the associated parser superclass."
+
+    ^ SmaCCParser withAllSubclasses
+        detect: [ :e | 
+            (e class includesSelector: #parserType)
+                and: [ e parserType = self parserType ] ]
+]
+
+{ #category : #accessing }
+SmaCCGrammar >> parserType [
+    ^ parserType ifNil: [ parserType := SmaCCParser parserType ]
+]
+
+{ #category : #accessing }
+SmaCCGrammar >> parserType: aSymbol [
+    SmaCCParser withAllSubclasses
+        detect: [ :e | 
+            (e class includesSelector: #parserType)
+                and: [ e parserType == aSymbol ] ]
+        ifNone: [ self error: aSymbol , ': Unknown parser type' ].
+    parserType := aSymbol
 ]
 
 { #category : #accessing }

@@ -231,7 +231,7 @@ SmaCCParser class >> resetCaches [
 
 { #category : #accessing }
 SmaCCParser class >> scannerClass [
-	^ self subclassResponsibility
+	^ SmaCCScanner
 ]
 
 { #category : #encoding }

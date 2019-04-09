@@ -1081,6 +1081,11 @@ SmaCCSmalltalkCodeGenerator >> scannerClass [
 
 { #category : #accessing }
 SmaCCSmalltalkCodeGenerator >> scannerClass: aClassOrString [
+	| parserSuperClass |
+	parserSuperClass := SmaCCParser withAllSubclasses
+		detect: [ :e | (e class includesSelector: #parserType) 
+			and: [ e parserType == grammar parserType ] ] 
+		ifNone: [ self error: 'Unknown parser type' ].
 	(aClassOrString isKindOf: Behavior)
 		ifTrue: [ scannerClass := model classFor: aClassOrString ]
 		ifFalse:
@@ -1089,7 +1094,7 @@ SmaCCSmalltalkCodeGenerator >> scannerClass: aClassOrString [
 				ifTrue:
 					[ scannerClass := self
 						defineClass: aClassOrString
-						asSubclassOf: SmaCCScanner ] ]
+						asSubclassOf: parserSuperClass scannerClass ] ]
 ]
 
 { #category : #accessing }

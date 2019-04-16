@@ -44,7 +44,7 @@ Class {
 		'comments',
 		'attributes'
 	],
-	#category : #'SmaCC_FGLR_Runtime'
+	#category : #'SmaCC_FGLR_Runtime-Core'
 }
 
 { #category : #'instance creation' }

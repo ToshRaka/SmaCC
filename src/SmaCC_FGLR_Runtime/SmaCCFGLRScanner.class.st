@@ -20,7 +20,7 @@ Class {
 	#instVars : [
 		'fiber'
 	],
-	#category : #'SmaCC_FGLR_Runtime'
+	#category : #'SmaCC_FGLR_Runtime-Core'
 }
 
 { #category : #'as yet unclassified' }

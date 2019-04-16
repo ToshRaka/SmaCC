@@ -37,7 +37,7 @@ Class {
 		'lastId',
 		'shouldMerge'
 	],
-	#category : #'SmaCC_FGLR_Runtime'
+	#category : #'SmaCC_FGLR_Runtime-Core'
 }
 
 { #category : #accessing }

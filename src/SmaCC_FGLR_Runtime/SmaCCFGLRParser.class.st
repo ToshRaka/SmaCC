@@ -26,7 +26,7 @@ Class {
 	#classInstVars : [
 		'cachedTrees'
 	],
-	#category : #'SmaCC_FGLR_Runtime'
+	#category : #'SmaCC_FGLR_Runtime-Core'
 }
 
 { #category : #accessing }

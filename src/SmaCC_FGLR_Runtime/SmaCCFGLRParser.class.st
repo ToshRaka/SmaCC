@@ -67,52 +67,52 @@ SmaCCFGLRParser class >> parseAll: aString startingAt: anInteger [
 ]
 
 { #category : #parsing }
-SmaCCFGLRParser class >> parseAll: aString startingAt: anInteger withScannerState: aSymbol [
+SmaCCFGLRParser class >> parseAll: aString startingAt: anInteger withScope: aSymbol [
 	"Returns all possible parse nodes that can be created from aString starting from state anInteger in the parser with scanner state aSymbol."
 
 	| parser |
 	parser := self on: (ReadStream on: aString).
 	parser setStartingState: anInteger.
-	parser state: aSymbol.
+	parser scope: aSymbol.
 	parser scheduler shouldNotMerge.
 	^ parser parse
 ]
 
 { #category : #parsing }
-SmaCCFGLRParser class >> parseAll: aString withScannerState: aSymbol [
+SmaCCFGLRParser class >> parseAll: aString withScope: aSymbol [
 	"Returns all possible parse nodes that can be created from aString starting from any place in the parser with scanner state aSymbol."
 
 	| parser |
 	parser := self on: (ReadStream on: aString).
-	parser state: aSymbol.
+	parser scope: aSymbol.
 	parser scheduler registerAllFibers.
 	parser scheduler shouldNotMerge.
 	^ parser parse
 ]
 
 { #category : #parsing }
-SmaCCFGLRParser class >> parseAllScannerStates: aString startingAt: anInteger [
+SmaCCFGLRParser class >> parseAllScopes: aString startingAt: anInteger [
 	"Returns all possible parse nodes that can be created from aString starting from any place in the parser."
 
 	^ (self scannerClass states
 		collect: [ :each |
 			| parser |
 			parser := self on: (ReadStream on: aString).
-			parser state: each.
+			parser scope: each.
 			parser setStartingState: anInteger.
 			parser scheduler shouldNotMerge.
 			parser parse ]) flattened
 ]
 
 { #category : #parsing }
-SmaCCFGLRParser class >> parseAllStartingAndScannerStates: aString [
+SmaCCFGLRParser class >> parseAllStartingStatesAndScopes: aString [
 	"Returns all possible parse nodes that can be created from aString starting from any place in the parser."
 
 	^ (self scannerClass states
 		collect: [ :each |
 			| parser |
 			parser := self on: (ReadStream on: aString).
-			parser state: each.
+			parser scope: each.
 			parser scheduler registerAllFibers.
 			parser scheduler shouldNotMerge.
 			parser parse ]) flattened

@@ -190,7 +190,7 @@ SmaCCFGLRScheduler >> registerAllFibers [
 						stateStack: (OrderedCollection with: each)
 						nodeStack: OrderedCollection new
 						id: self newId
-						scannerState: parser state) ]
+						scope: parser scope) ]
 ]
 
 { #category : #registering }

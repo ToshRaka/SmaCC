@@ -52,7 +52,7 @@ FGLRGrammarTest >> setUp [
 
 { #category : #running }
 FGLRGrammarTest >> tearDown [
-	(RPackageOrganizer default packageNamed: self class packageName) 
-		classes do: [ :each | each removeFromSystem ].
+	"(RPackageOrganizer default packageNamed: self class packageName) 
+		classes do: [ :each | each removeFromSystem ]."
 	super tearDown
 ]

@@ -70,11 +70,11 @@ SmaCCFGLRFiber class >> stateStack: stateStack nodeStack: nodeStack id: anIntege
 ]
 
 { #category : #'instance creation' }
-SmaCCFGLRFiber class >> stateStack: stateStack nodeStack: nodeStack id: anInteger scannerState: aSymbol [
+SmaCCFGLRFiber class >> stateStack: stateStack nodeStack: nodeStack id: anInteger scope: aSymbol [
 	^ self new
 		stateStack: stateStack nodeStack: nodeStack;
 		id: anInteger;
-		state: aSymbol;
+		scope: aSymbol;
 		yourself
 ]
 
@@ -134,7 +134,7 @@ SmaCCFGLRFiber >> duplicateWithId: anInteger [
 	newThread currentToken: currentToken copy.
 	newThread nextAction: nextAction copy.
 	newThread position: position copy.
-	newThread state: scope copy.
+	newThread scope: scope copy.
 	newThread comments: comments copy.
 	newThread id: anInteger.
 	^ newThread 

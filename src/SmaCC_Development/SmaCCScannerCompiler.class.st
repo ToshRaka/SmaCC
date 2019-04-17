@@ -125,7 +125,13 @@ SmaCCScannerCompiler >> compileScanner [
 	| regex |
 	regex := self createRegex.
 	self compileTokenIdMethods.
-	self compileMethodsFor: regex
+	self compileMethodsFor: regex.
+	self compileStateMethod
+]
+
+{ #category : #'compiling-scanner' }
+SmaCCScannerCompiler >> compileStateMethod [
+	codeGenerator compileStateMethodFor: grammar scannerStates
 ]
 
 { #category : #'compiling-scanner' }

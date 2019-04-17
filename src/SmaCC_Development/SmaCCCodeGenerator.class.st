@@ -597,6 +597,16 @@ SmaCCCodeGenerator >> compileStartingStateIds: startingStates [
 				compileMethodIn: parserClass theMetaClass ]
 ]
 
+{ #category : #'compiling-scanner' }
+SmaCCCodeGenerator >> compileStateMethodFor: aCollection [
+	self 
+		startPublicVirtualMethod;
+		nextPutLine: (self method: #states type: self voidType);
+		nextPutStatement: (self return: aCollection asArray printString);
+		endMethod.
+	self compileMethodIn: scannerClass theMetaClass
+]
+
 { #category : #'compiling-parser' }
 SmaCCCodeGenerator >> compileSymbolNames [
 	| names |

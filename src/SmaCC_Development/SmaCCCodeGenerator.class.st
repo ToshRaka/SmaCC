@@ -535,6 +535,16 @@ SmaCCCodeGenerator >> compileOptimizedMethodIn: modelClass [
 ]
 
 { #category : #'compiling-scanner' }
+SmaCCCodeGenerator >> compilePattern: aString with: bString [
+	self 
+		startPublicOverrideMethod;
+		nextPutLine: (self method: ('pattern', aString) asSymbol type: self voidType);
+		nextPutStatement: (self return: bString printString);
+		endMethod.
+	self compileMethodIn: scannerClass theMetaClass
+]
+
+{ #category : #'compiling-scanner' }
 SmaCCCodeGenerator >> compilePostCopyMethod: aSmaCCNodeClassDefinition [
 	self subclassResponsibility
 ]

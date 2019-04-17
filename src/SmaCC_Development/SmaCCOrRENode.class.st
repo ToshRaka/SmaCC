@@ -79,6 +79,15 @@ SmaCCOrRENode >> printOn: aStream [
 	aStream nextPut: $)
 ]
 
+{ #category : #printing }
+SmaCCOrRENode >> printREOn: aStream [
+	aStream nextPut: $(.
+	nodes
+		do: [ :each | each printOn: aStream ]
+		separatedBy: [ aStream nextPutAll: ' | ' ].
+	aStream nextPut: $)
+]
+
 { #category : #constructing }
 SmaCCOrRENode >> | aSmaCCRegularExpressionNode [
 	self action = aSmaCCRegularExpressionNode action

@@ -121,12 +121,31 @@ SmaCCScannerCompiler >> compileMethodsFor: regex [
 ]
 
 { #category : #'compiling-scanner' }
+SmaCCScannerCompiler >> compilePatternMethods [
+	self tokens
+		at: '<patternToken>'
+		ifPresent: [ :val |
+			| sentinels stream |
+			sentinels := (val nodes size < 3
+				ifTrue: [ val nodes first nodes ] 
+				ifFalse: [ val nodes ])
+					splitOn: [ :each | (each isKindOf: SmaCCRepeatingRENode) ].
+			stream := ReadWriteStream on: ''.
+			sentinels first do: [ :each | each printREOn: stream ].
+			codeGenerator compilePattern: 'Begin' with: stream contents.
+			stream resetContents.
+			sentinels last do: [ :each | each printREOn: stream ].
+			codeGenerator compilePattern: 'End' with: stream contents ]
+]
+
+{ #category : #'compiling-scanner' }
 SmaCCScannerCompiler >> compileScanner [
 	| regex |
 	regex := self createRegex.
 	self compileTokenIdMethods.
 	self compileMethodsFor: regex.
-	self compileStateMethod
+	self compileStateMethod.
+	self compilePatternMethods
 ]
 
 { #category : #'compiling-scanner' }
@@ -212,6 +231,11 @@ SmaCCScannerCompiler >> specificRegularExpressionsDo: aBlock [
 { #category : #accessing }
 SmaCCScannerCompiler >> symbols [
 	^ grammar symbols
+]
+
+{ #category : #accessing }
+SmaCCScannerCompiler >> tokens [
+	^ grammar tokens
 ]
 
 { #category : #'compiling-scanner' }

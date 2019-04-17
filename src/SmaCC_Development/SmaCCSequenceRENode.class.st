@@ -48,6 +48,11 @@ SmaCCSequenceRENode >> makeCaseInsensitive [
 	nodes do: [ :each | each makeCaseInsensitive ]
 ]
 
+{ #category : #accessing }
+SmaCCSequenceRENode >> nodes [
+	^ nodes
+]
+
 { #category : #'initialize-release' }
 SmaCCSequenceRENode >> nodes: aCollection [
 	nodes := aCollection
@@ -89,4 +94,10 @@ SmaCCSequenceRENode >> printOn: aStream [
 	nodes
 		do: [ :each | each printOn: aStream ]
 		separatedBy: [ aStream space ]
+]
+
+{ #category : #printing }
+SmaCCSequenceRENode >> printREOn: aStream [
+	nodes
+		do: [ :each | each printOn: aStream ]
 ]

@@ -65,3 +65,8 @@ SmaCCNotRENode >> possibleMatchesSize [
 SmaCCNotRENode >> printOn: aStream [
 	self characterNode printOn: aStream
 ]
+
+{ #category : #printing }
+SmaCCNotRENode >> printREOn: aStream [
+	self characterNode putOn: aStream
+]

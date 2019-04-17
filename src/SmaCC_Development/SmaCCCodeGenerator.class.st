@@ -601,7 +601,7 @@ SmaCCCodeGenerator >> compileStartingStateIds: startingStates [
 SmaCCCodeGenerator >> compileStateMethodFor: aCollection [
 	self 
 		startPublicVirtualMethod;
-		nextPutLine: (self method: #states type: self voidType);
+		nextPutLine: (self method: #states type: self arrayType);
 		nextPutStatement: (self return: aCollection asArray printString);
 		endMethod.
 	self compileMethodIn: scannerClass theMetaClass

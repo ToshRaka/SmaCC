@@ -61,6 +61,14 @@ SmaCCFGLRScheduler >> executeFiber: aSmaCCFGLRFiber [
 
 ]
 
+{ #category : #forking }
+SmaCCFGLRScheduler >> forkFiber: aSmaCCFGLRFiber withActions: aCollection [
+	aCollection
+		ifNotEmpty: [ aCollection
+				allButFirstDo: [ :action | self forkFiberWithAction: action ].
+			self registerFiber: aSmaCCFGLRFiber withAction: aCollection first ]
+]
+
 { #category : #'pattern-matching' }
 SmaCCFGLRScheduler >> forkFiberForMetavariable: aSmaCCFLGRFiber [
 	| metavariableNodes |
@@ -72,24 +80,23 @@ SmaCCFGLRScheduler >> forkFiberForMetavariable: aSmaCCFLGRFiber [
 ]
 
 { #category : #forking }
-SmaCCFGLRScheduler >> forkFiberForNextActions: aSmaCCFLGRFiber [
-	parser restoreFiber: aSmaCCFLGRFiber.
+SmaCCFGLRScheduler >> forkFiberForNextActions: aSmaCCFGLRFiber [
+	parser restoreFiber: aSmaCCFGLRFiber.
 	(shouldMerge not and: [ parser isEOFToken ])
-		ifTrue: [ parser filteredReduceActionsDo: [ :each | self forkFiberWithAction: each ].
-			aSmaCCFLGRFiber isStackNode
-				ifTrue: [ accepted addLast: aSmaCCFLGRFiber ] ]
-		ifFalse: [ | actions |
-			actions := parser filterReduceActions: parser actionsForCurrentToken.
-			actions
-				ifNotEmpty: [ actions allButFirstDo: [ :action | self forkFiberWithAction: action ].
-					self registerFiber: aSmaCCFLGRFiber withAction: actions first ] ]
+		ifTrue: [ parser
+				filteredReduceActionsDo: [ :each | self forkFiberWithAction: each ].
+			aSmaCCFGLRFiber isStackNode
+				ifTrue: [ accepted addLast: aSmaCCFGLRFiber ] ]
+		ifFalse: [ self
+				forkFiber: aSmaCCFGLRFiber
+				withActions: (parser filterReduceActions: parser actionsForCurrentToken) ]
 ]
 
 { #category : #forking }
 SmaCCFGLRScheduler >> forkFiberWithAction: anInteger [
-	| newThread |
-	newThread := parser fiber duplicateWithId: self newId.
-	self registerFiber: newThread withAction: anInteger
+	| newFiber |
+	newFiber := parser fiber duplicateWithId: self newId.
+	self registerFiber: newFiber withAction: anInteger
 ]
 
 { #category : #'pattern-matching' }

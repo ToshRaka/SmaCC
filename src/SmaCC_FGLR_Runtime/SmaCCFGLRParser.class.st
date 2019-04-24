@@ -287,6 +287,14 @@ SmaCCFGLRParser >> filterReduceActions: aCollection [
 ]
 
 { #category : #private }
+SmaCCFGLRParser >> filteredReduceActions [
+	| actions |
+	actions := OrderedCollection new.
+	self filteredReduceActionsDo: [ :each | actions addLast: each ].
+	^ actions
+]
+
+{ #category : #private }
 SmaCCFGLRParser >> filteredReduceActionsDo: aBlock [
 	self
 		actionsDo: [ :each | 

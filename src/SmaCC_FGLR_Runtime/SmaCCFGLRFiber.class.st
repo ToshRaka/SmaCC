@@ -130,12 +130,6 @@ SmaCCFGLRFiber >> currentToken: aSmaCCToken [
 SmaCCFGLRFiber >> duplicateWithId: anInteger [
 	| newThread |
 	newThread := self copy.
-	newThread stateStack: stateStack copy nodeStack: nodeStack copy.
-	newThread currentToken: currentToken copy.
-	newThread nextAction: nextAction copy.
-	newThread position: position copy.
-	newThread scope: scope copy.
-	newThread comments: comments copy.
 	newThread id: anInteger.
 	^ newThread 
 ]
@@ -174,7 +168,7 @@ SmaCCFGLRFiber >> initialize [
 
 { #category : #testing }
 SmaCCFGLRFiber >> isStackNode [
-	^ nodeStack size = 1 and: [ nodeStack first isKindOf: SmaCCParseNode ]
+	^ nodeStack size = 1 and: [ (nodeStack first isKindOf: SmaCCParseNode) or: [ nodeStack first isKindOf: SmaCCToken ] ]
 ]
 
 { #category : #merging }
@@ -267,6 +261,10 @@ SmaCCFGLRFiber >> position: anObject [
 { #category : #copying }
 SmaCCFGLRFiber >> postCopy [
 	super postCopy.
+	stateStack := stateStack copy.
+	nodeStack := nodeStack copy.
+	currentToken := currentToken copy.
+	comments := comments copy.
 	attributes notNil
 		ifTrue: [ attributes := attributes copy ]
 ]

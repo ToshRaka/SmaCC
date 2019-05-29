@@ -248,13 +248,12 @@ SmaCCFGLRScheduler >> scheduleFiber: aSmaCCFLGRFiber [
 
 { #category : #scheduling }
 SmaCCFGLRScheduler >> schedulingLoop [
-	[ reduces isEmpty ] whileFalse: 
-		[ self scheduleFiber: self nextReduce ].
-	[ shifts isEmpty ] whileFalse:
-		[ self scheduleFiber: self nextShift ].
-	waiting isNotEmpty
-		ifTrue: [ self processWaitingList.
-			self schedulingLoop ]
+	[ [ reduces isEmpty ]
+		whileFalse: [ self scheduleFiber: self nextReduce ].
+	[ shifts isEmpty ] 
+		whileFalse: [ self scheduleFiber: self nextShift ].
+	waiting isNotEmpty ] 
+		whileTrue: [ self processWaitingList ]
 ]
 
 { #category : #'pattern-matching' }

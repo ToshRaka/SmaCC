@@ -87,6 +87,19 @@ SmaCCDefinitionScanner >> errorTokenId [
 	^ 103
 ]
 
+{ #category : #'token-actions' }
+SmaCCDefinitionScanner >> immediateCode [
+	| code |
+	code := ''.
+	[ code := code , (stream upTo: $]).
+	self canParse: code ]
+		whileFalse: [ stream atEnd
+				ifTrue: [ ^ self scannerError ].
+			code := code , ']' ].
+	matchActions := Array with: self immediateCodeId.
+	^ self createTokenFor: '[' , code , ']'
+]
+
 { #category : #generated }
 SmaCCDefinitionScanner >> immediateCodeId [
 	^ 33
@@ -669,7 +682,7 @@ SmaCCDefinitionScanner >> symbolnameId [
 
 { #category : #generated }
 SmaCCDefinitionScanner >> tokenActions [
-	^ #(nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil #whitespace nil nil nil #comment #code nil nil nil nil nil nil nil nil nil nil nil nil nil #patternToken)
+	^ #(nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil #whitespace nil nil nil #comment #code #immediateCode nil nil nil nil nil nil nil nil nil nil nil nil #patternToken)
 ]
 
 { #category : #generated }

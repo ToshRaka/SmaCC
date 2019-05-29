@@ -9,7 +9,7 @@ Class {
 
 { #category : #'generated-accessing' }
 SmaCCDefinitionParser class >> cacheId [
-	^'2019-05-29T14:04:22.623206+02:00'
+	^'2019-05-29T14:51:29.92492+02:00'
 ]
 
 { #category : #generated }

@@ -64,9 +64,7 @@ SmaCCFGLRScanner >> patternToken [
 				copyFrom: self class patternBegin size + 1
 				to: outputStream contents size - self class patternEnd size).
 	outputStream reset.
-	^ MetavariableModelCreator new
-		visitMetavariableDeclaration: metav;
-		model
+	^ MetavariableTypeExtractor new extract: metav
 ]
 
 { #category : #accessing }

@@ -73,9 +73,9 @@ SmaCCFGLRScheduler >> forkFiber: aSmaCCFGLRFiber withActions: aCollection [
 SmaCCFGLRScheduler >> forkFiberForMetavariable: aSmaCCFLGRFiber [
 	| metavariableNodes |
 	parser restoreFiber: aSmaCCFLGRFiber.
-	metavariableNodes := (MetavariableTypeChecker
-		types: parser typesFromCurrentState
-		parser: parser) check: aSmaCCFLGRFiber currentToken.
+	metavariableNodes := aSmaCCFLGRFiber currentToken 
+		checkAgainst: parser typesFromCurrentState
+		withParserClass: parser class.
 	metavariableNodes do: [ :each | self forkFiberWithMetavariableNode: each ]
 ]
 

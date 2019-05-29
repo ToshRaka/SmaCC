@@ -6,7 +6,7 @@ Class {
 
 { #category : #'generated-accessing' }
 JSONParser class >> cacheId [
-	^'2019-02-20T19:15:05.779958-06:00'
+	^'2019-04-22T07:07:38.619472-05:00'
 ]
 
 { #category : #generated }
@@ -19,6 +19,8 @@ JSONParser class >> definitionComment [
 
 %ignore_variables comma;
 
+%unicode;
+
 <hex>
 	: [0-9a-fA-F]
 	;
@@ -26,7 +28,7 @@ JSONParser class >> definitionComment [
 	: \-? (\d | [1-9]\d+) (\.\d+)? ([eE][\+\-]?\d+)?
 	;
 <string>
-	: \"" ([^\x00-\x1F\""\\]|(\\([\""\\\/bnft]|(u<hex>{4,4}))))* \""
+	: \"" ([^\x00-\x1F\""\\]|(\\([\""\\\/bnrt]|(u<hex>{4,4}))))* \""
 	;
 <whitespace>
 	: [\x09\x0a\x0d\x20]+
@@ -68,20 +70,22 @@ JSONParser class >> fileExtension [
 { #category : #generated }
 JSONParser class >> reduceTable [
 ^#(
-	#(14 1 #reduceActionForvalue6:) 
-	#(14 1 #reduceActionForvalue7:) 
-	#(14 1 #reduceActionForvalue4:) 
-	#(14 1 #reduceActionForvalue3:) 
-	#(14 1 #liftFirstValue:) 
-	#(18 2 #reduceActionForarray1:) 
-	#(19 1 #reduceActionForelements2:) 
-	#(15 2 #reduceActionForobject1:) 
-	#(16 1 #reduceActionForelements2:) 
-	#(18 3 #reduceActionForarray2:) 
-	#(15 3 #reduceActionForobject2:) 
-	#(19 3 #reduceActionForelements1:) 
-	#(17 3 #reduceActionFormember1:) 
-	#(16 3 #reduceActionForelements1:)
+	#(14 1 #reduceActionForvalue6: 337926 false ) 
+	#(14 1 #reduceActionForvalue7: 337927 false ) 
+	#(14 1 #reduceActionForvalue6: 337925 false ) 
+	#(14 1 #reduceActionForvalue4: 337924 false ) 
+	#(14 1 #reduceActionForvalue3: 337923 false ) 
+	#(14 1 #liftFirstValue: 337921 false ) 
+	#(14 1 #liftFirstValue: 337922 false ) 
+	#(18 2 #reduceActionForarray1: 713729 false ) 
+	#(19 1 #reduceActionForelements2: 779266 false ) 
+	#(15 2 #reduceActionForobject1: 520193 false ) 
+	#(16 1 #reduceActionForelements2: 581634 false ) 
+	#(18 3 #reduceActionForarray2: 713730 false ) 
+	#(15 3 #reduceActionForobject2: 520194 false ) 
+	#(19 3 #reduceActionForelements1: 779265 false ) 
+	#(17 3 #reduceActionFormember1: 652289 false ) 
+	#(16 3 #reduceActionForelements1: 581633 false )
 	).
 ]
 
@@ -112,28 +116,28 @@ JSONParser class >> transitionTable [
 #[1 0 9 0 3 0 49 0 4 0 13 0 5 0 17 0 6 0 21 0 7 0 25 0 8 0 29 0 10 0 33 0 11 0 53 0 14 0 53 0 15 0 53 0 18 0 57 0 19] 
 #[0 0 6 0 1 0 4 0 9 0 20] 
 #[0 0 10 0 1 0 4 0 9 0 20] 
-#[0 0 6 0 1 0 4 0 9 0 20] 
-#[1 0 61 0 9 0 65 0 11 0 69 0 16 0 73 0 17] 
 #[0 0 14 0 1 0 4 0 9 0 20] 
+#[1 0 61 0 9 0 65 0 11 0 69 0 16 0 73 0 17] 
 #[0 0 18 0 1 0 4 0 9 0 20] 
+#[0 0 22 0 1 0 4 0 9 0 20] 
 #[0 0 0 0 20] 
-#[0 0 22 0 1 0 4 0 9 0 20] 
-#[0 0 22 0 1 0 4 0 9 0 20] 
 #[0 0 26 0 1 0 4 0 9 0 20] 
-#[0 0 30 0 1 0 4] 
-#[1 0 77 0 1 0 81 0 4] 
+#[0 0 30 0 1 0 4 0 9 0 20] 
 #[0 0 34 0 1 0 4 0 9 0 20] 
+#[0 0 38 0 1 0 4] 
+#[1 0 77 0 1 0 81 0 4] 
+#[0 0 42 0 1 0 4 0 9 0 20] 
 #[0 0 85 0 2] 
 #[1 0 89 0 1 0 93 0 9] 
-#[0 0 38 0 1 0 9] 
+#[0 0 46 0 1 0 9] 
 #[1 0 9 0 3 0 13 0 5 0 17 0 6 0 21 0 7 0 25 0 8 0 29 0 10 0 33 0 11 0 97 0 14 0 97 0 15 0 97 0 18] 
-#[0 0 42 0 1 0 4 0 9 0 20] 
+#[0 0 50 0 1 0 4 0 9 0 20] 
 #[1 0 9 0 3 0 13 0 5 0 17 0 6 0 21 0 7 0 25 0 8 0 29 0 10 0 33 0 11 0 101 0 14 0 101 0 15 0 101 0 18] 
 #[1 0 65 0 11 0 105 0 17] 
-#[0 0 46 0 1 0 4 0 9 0 20] 
-#[0 0 50 0 1 0 4] 
-#[0 0 54 0 1 0 9] 
-#[0 0 58 0 1 0 9]
+#[0 0 54 0 1 0 4 0 9 0 20] 
+#[0 0 58 0 1 0 4] 
+#[0 0 62 0 1 0 9] 
+#[0 0 66 0 1 0 9]
 	).
 ]
 

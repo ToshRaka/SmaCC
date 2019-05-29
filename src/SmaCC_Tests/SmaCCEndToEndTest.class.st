@@ -991,6 +991,28 @@ SmaCCEndToEndTest >> testIgnoreCaseWithMultipleKeywordCases [
 ]
 
 { #category : #tests }
+SmaCCEndToEndTest >> testImmediateExecution [
+	| parserCompiler notification |
+	(parserCompiler := SmaCCGrammarCompiler new) codeGenerator
+		defaultCategory: self class category.
+	parserCompiler
+		buildDefinition:
+			'<int> : \d+; <whitespace>: \s+;
+			%glr;
+			Test : A <int> <int> { ''1'' } | B <int> {self error: ''Should not occur''};
+			A : { true };
+			B : [ Notification signal: ''B'' ];
+			'.
+	parserCompiler compileInto: 'TestScanner' andParser: 'TestParser'.
+	[ self assert: (self parserClass parse: '1 2') ]
+		on: Notification
+		do: [ :ex | 
+			notification := ex messageText.
+			ex resume ].
+	self assert: notification = 'B'
+]
+
+{ #category : #tests }
 SmaCCEndToEndTest >> testImplicitParserTokens [
 	| parserCompiler |
 	(parserCompiler := SmaCCGrammarCompiler new) codeGenerator
@@ -1053,16 +1075,15 @@ SmaCCEndToEndTest >> testInvertedCharactersBlock [
 
 { #category : #tests }
 SmaCCEndToEndTest >> testKeywords [
-	| parserCompiler size |
+	| parserCompiler size definition |
+	definition := '%ignorecase;
+			Start ::= "Foo" "bar";'.
 	size := SmaCCGrammar maximumCharacterValue.
 	self supportsUnicodeStrings
-		ifTrue: [ SmaCCGrammar maximumCharacterValue: (2 raisedTo: 16) - 1 ].
+		ifTrue: [ definition := '%unicode; ' , definition ].
 	[ (parserCompiler := SmaCCGrammarCompiler new) codeGenerator
 		defaultCategory: self class category.
-	parserCompiler
-		buildDefinition:
-			'%ignorecase;
-			Start ::= "Foo" "bar";'.
+	parserCompiler buildDefinition: definition.
 	parserCompiler compileInto: 'TestScanner' andParser: 'TestParser'.
 	self parserClass parse: 'FoObAr' ]
 		ensure: [ SmaCCGrammar maximumCharacterValue: size ]
@@ -1709,6 +1730,24 @@ SmaCCEndToEndTest >> testPlus [
 	self should: [self parserClass parse: '1'] raise: SmaCCParserError
 ]
 
+{ #category : #tests }
+SmaCCEndToEndTest >> testPreferredReduction [
+	| parserCompiler |
+	(parserCompiler := SmaCCGrammarCompiler new) codeGenerator
+		defaultCategory: self class category.
+	parserCompiler
+		buildDefinition:
+			'%glr;
+			Test : {1} | Test A {''1'' * ''2''} | Test B {''1'' * ''2''};
+			A : "a" {1};
+			B : "a" {2};
+			'.
+	parserCompiler compileInto: 'TestScanner' andParser: 'TestParser'.
+	self
+		assert: (self parserClass parse: (String new: 100 withAll: $a))
+		equals: 1
+]
+
 { #category : #'tests-parse tree creation' }
 SmaCCEndToEndTest >> testPrefixSuffix [
 	| parserCompiler node |
@@ -2300,12 +2339,12 @@ SmaCCEndToEndTest >> testSpecialCharacters [
 		on: Error
 		do: [ :ex | ^ self ].	"Unicode characters not supported"
 	maxValue := SmaCCGrammar maximumCharacterValue.
-	SmaCCGrammar maximumCharacterValue: 65535.
 	[ (parserCompiler := SmaCCGrammarCompiler new) codeGenerator
 		defaultCategory: self class category.
 	parserCompiler
 		buildDefinition:
-			'%ignorecase;
+			'%unicode;
+			%ignorecase;
 			<name> : \x3g \x20 \xFF \xFF1 \xFF00 \cC;
 			begin ::= <name> {true};'.
 	parserCompiler compileInto: 'TestScanner' andParser: 'TestParser'.

@@ -437,7 +437,7 @@ SmaCCFGLRParser >> reduce: anInteger [
 		items at: i put: self popNodeStack.
 		fiber stateStack removeLast ].
 	fiber nodeStack
-		addLast: (self performReduceMethod: (reduceEntry at: 3) with: items).
+		addLast: (self performReduceEntry: reduceEntry with: items).
 	fiber stateStack
 		addLast: ((self actionFor: (reduceEntry at: 1)) bitShift: -2)
 ]

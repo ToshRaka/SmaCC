@@ -54,7 +54,7 @@ SmaCCFGLRScheduler >> accepted [
 
 { #category : #scheduling }
 SmaCCFGLRScheduler >> executeFiber: aSmaCCFGLRFiber [
-	(aSmaCCFGLRFiber currentToken isKindOf: RfgMetavariableNode)
+	(aSmaCCFGLRFiber currentToken isPattern)
 		ifTrue: [ ^ parser performActionForMetavariable: aSmaCCFGLRFiber nextAction ].
 	^ parser performAction: aSmaCCFGLRFiber nextAction
 
@@ -71,12 +71,12 @@ SmaCCFGLRScheduler >> forkFiber: aSmaCCFGLRFiber withActions: aCollection [
 
 { #category : #'pattern-matching' }
 SmaCCFGLRScheduler >> forkFiberForMetavariable: aSmaCCFLGRFiber [
-	| metavariableNodes |
+	| inferredTypes |
 	parser restoreFiber: aSmaCCFLGRFiber.
-	metavariableNodes := aSmaCCFLGRFiber currentToken 
+	inferredTypes := aSmaCCFLGRFiber currentToken 
 		checkAgainst: parser typesFromCurrentState
 		withParserClass: parser class.
-	metavariableNodes do: [ :each | self forkFiberWithMetavariableNode: each ]
+	inferredTypes do: [ :each | self forkFiberWithMetavariableType: each ]
 ]
 
 { #category : #forking }
@@ -87,9 +87,11 @@ SmaCCFGLRScheduler >> forkFiberForNextActions: aSmaCCFGLRFiber [
 				filteredReduceActionsDo: [ :each | self forkFiberWithAction: each ].
 			aSmaCCFGLRFiber isStackNode
 				ifTrue: [ accepted addLast: aSmaCCFGLRFiber ] ]
-		ifFalse: [ self
-				forkFiber: aSmaCCFGLRFiber
-				withActions: (parser filterReduceActions: parser actionsForCurrentToken) ]
+		ifFalse: [ aSmaCCFGLRFiber currentToken isPattern
+				ifTrue: [ self forkFiberForMetavariable: aSmaCCFGLRFiber ]
+				ifFalse: [ self
+						forkFiber: aSmaCCFGLRFiber
+						withActions: (parser filterReduceActions: parser actionsForCurrentToken) ] ]
 ]
 
 { #category : #forking }
@@ -107,6 +109,16 @@ SmaCCFGLRScheduler >> forkFiberWithMetavariableNode: aSmaCCMetavariableNode [
 	self 
 		registerFiber: newFiber 
 		withAction: aSmaCCMetavariableNode type action
+]
+
+{ #category : #'pattern-matching' }
+SmaCCFGLRScheduler >> forkFiberWithMetavariableType: aSmaCCMetavariableType [
+	| newFiber |
+	newFiber := parser fiber duplicateWithId: self newId.
+	newFiber currentToken type mergeWithInferredType: aSmaCCMetavariableType.
+	self 
+		registerFiber: newFiber
+		withAction: aSmaCCMetavariableType action
 ]
 
 { #category : #testing }
@@ -228,10 +240,9 @@ SmaCCFGLRScheduler >> registerInitialFiberIfNone [
 
 { #category : #scheduling }
 SmaCCFGLRScheduler >> reschedule: aSmaCCFLGRFiber [
-	(parser isShift: aSmaCCFLGRFiber nextAction)
-		ifTrue: [ waiting add: aSmaCCFLGRFiber ].
-	(parser isReduce: aSmaCCFLGRFiber nextAction)
-		ifTrue: [ self forkFiberForNextActions: aSmaCCFLGRFiber ]
+	aSmaCCFLGRFiber currentToken
+		ifNil: [ waiting add: aSmaCCFLGRFiber ]
+		ifNotNil: [ self forkFiberForNextActions: aSmaCCFLGRFiber ]
 ]
 
 { #category : #scheduling }
@@ -248,10 +259,12 @@ SmaCCFGLRScheduler >> scheduleFiber: aSmaCCFLGRFiber [
 
 { #category : #scheduling }
 SmaCCFGLRScheduler >> schedulingLoop [
-	[ [ reduces isEmpty ]
-		whileFalse: [ self scheduleFiber: self nextReduce ].
-	[ shifts isEmpty ] 
-		whileFalse: [ self scheduleFiber: self nextShift ].
+	[ [ reduces isNotEmpty or: [ shifts isNotEmpty ] ]
+		whileTrue: [ 
+			[ reduces isNotEmpty ]
+				whileTrue: [ self scheduleFiber: self nextReduce ].
+			shifts isNotEmpty
+				ifTrue: [ self scheduleFiber: self nextShift ] ].
 	waiting isNotEmpty ] 
 		whileTrue: [ self processWaitingList ]
 ]

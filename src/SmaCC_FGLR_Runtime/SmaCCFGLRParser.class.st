@@ -360,7 +360,7 @@ SmaCCFGLRParser >> isAmbiguous: action [
 
 { #category : #testing }
 SmaCCFGLRParser >> isEOFToken [
-	^ (fiber currentToken isKindOf: SmaCCToken) and: [ fiber currentToken ids first = self emptySymbolTokenId]
+	^ fiber currentToken isPattern not and: [ fiber currentToken ids first = self emptySymbolTokenId ]
 ]
 
 { #category : #private }
@@ -396,9 +396,21 @@ SmaCCFGLRParser >> partialReset [
 
 { #category : #'pattern-matching' }
 SmaCCFGLRParser >> performActionForMetavariable: anAction [
-	fiber currentToken type nodeType = #SmaCCToken
-		ifTrue: [ self performAction: anAction ]
-		ifFalse: [ self shift: (anAction bitShift: -2) ]
+	| currentType |
+	currentType := fiber currentToken type current.
+	(currentType nodeType = #SmaCCToken and: [ self isReduce: anAction ])
+		ifTrue: [ self reduce: (anAction bitShift: -2) ]
+		ifFalse: [ | nextType |
+			fiber stateStack addLast: (anAction bitShift: -2).
+			fiber nodeStack
+				addLast:
+					(RfgMetavariableNode
+						identifier: fiber currentToken identifier
+						type: currentType).
+			nextType := fiber currentToken type next.
+			nextType 
+				ifNil: [ fiber currentToken: nil ]
+				ifNotNil: [ fiber currentToken type: nextType ] ]
 ]
 
 { #category : #private }
@@ -437,7 +449,7 @@ SmaCCFGLRParser >> reduce: anInteger [
 		items at: i put: self popNodeStack.
 		fiber stateStack removeLast ].
 	fiber nodeStack
-		addLast: (self performReduceEntry: reduceEntry with: items).
+		addLast: (self performReduceMethod: (reduceEntry at: 3) with: items).
 	fiber stateStack
 		addLast: ((self actionFor: (reduceEntry at: 1)) bitShift: -2)
 ]
@@ -480,13 +492,6 @@ SmaCCFGLRParser >> setStartingState: startingState [
 
 { #category : #private }
 SmaCCFGLRParser >> shift: stateIndex [
-	fiber stateStack addLast: stateIndex.
-	fiber nodeStack addLast: fiber currentToken.
-	fiber currentToken: nil
-]
-
-{ #category : #'pattern-matching' }
-SmaCCFGLRParser >> shiftMetavariableNode: stateIndex [
 	fiber stateStack addLast: stateIndex.
 	fiber nodeStack addLast: fiber currentToken.
 	fiber currentToken: nil

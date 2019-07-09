@@ -9,16 +9,16 @@ Class {
 	#name : #SmaCCDeferredReduceAction,
 	#superclass : #Object,
 	#instVars : [
-		'arguments',
-		'reduceEntry'
+		'selector',
+		'arguments'
 	],
 	#category : #'SmaCC_GLR_Runtime'
 }
 
 { #category : #'instance creation' }
-SmaCCDeferredReduceAction class >> entry: anArray arguments: aCollection [
+SmaCCDeferredReduceAction class >> selector: aSymbol arguments: aCollection [
 	^ self new
-		entry: anArray arguments: aCollection;
+		selector: aSymbol arguments: aCollection;
 		yourself
 ]
 
@@ -45,34 +45,28 @@ SmaCCDeferredReduceAction >> argumentsFor: aSmaCCParser [
 	^ arguments
 ]
 
-{ #category : #'initialize-release' }
-SmaCCDeferredReduceAction >> entry: anArray arguments: aCollection [
-	reduceEntry := anArray.
-	arguments := aCollection
-]
-
 { #category : #comparing }
 SmaCCDeferredReduceAction >> hash [
-	^ self class hash bitXor: (reduceEntry hash bitXor: arguments hash)
+	^ self class hash bitXor: (selector hash bitXor: arguments hash)
 ]
 
 { #category : #accessing }
 SmaCCDeferredReduceAction >> performOnSmaCCParser: aSmaCCParser [
-	| selector |
-	selector := self selector.
 	^ selector numArgs = 0
 		ifTrue: [ aSmaCCParser perform: selector ]
-		ifFalse: [ aSmaCCParser
+		ifFalse:
+			[ aSmaCCParser
 				perform: selector
 				with: (self argumentsFor: aSmaCCParser) ]
 ]
 
-{ #category : #comparing }
-SmaCCDeferredReduceAction >> priority [
-	^ reduceEntry at: 4 ifAbsent: [ 0 ]
-]
-
 { #category : #accessing }
 SmaCCDeferredReduceAction >> selector [
-	^ reduceEntry at: 3
+	^ selector
+]
+
+{ #category : #'initialize-release' }
+SmaCCDeferredReduceAction >> selector: aSymbol arguments: aCollection [
+	selector := aSymbol.
+	arguments := aCollection
 ]

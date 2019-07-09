@@ -2,14 +2,11 @@ Extension { #name : #SmaCCParser }
 
 { #category : #'*SmaCC_Development' }
 SmaCCParser class >> compileGrammar: aString [
-	| oldCharacterSize |
 	(aString isNil or: [ aString isEmpty ])
 		ifTrue: [ ^ self ].
-	oldCharacterSize := SmaCCGrammar maximumCharacterValue.
-	[ SmaCCGrammarCompiler new
+	SmaCCGrammarCompiler new
 		buildDefinition: aString;
-		compileInto: self scannerClass andParser: self ]
-		ensure: [ SmaCCGrammar maximumCharacterValue: oldCharacterSize ]
+		compileInto: self scannerClass andParser: self
 ]
 
 { #category : #'*SmaCC_Development' }

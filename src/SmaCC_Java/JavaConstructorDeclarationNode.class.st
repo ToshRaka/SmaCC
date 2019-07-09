@@ -46,7 +46,7 @@ JavaConstructorDeclarationNode >> commas: anOrderedCollection [
 
 { #category : #generated }
 JavaConstructorDeclarationNode >> compositeNodeVariables [
-	^ #(#parameters #modifiers)
+	^ #(#modifiers #parameters)
 ]
 
 { #category : #generated }
@@ -62,9 +62,9 @@ JavaConstructorDeclarationNode >> ignoredTokenVariables [
 { #category : #'generated-initialize-release' }
 JavaConstructorDeclarationNode >> initialize [
 	super initialize.
+	modifiers := OrderedCollection new: 2.
 	parameters := OrderedCollection new: 2.
 	commas := OrderedCollection new: 2.
-	modifiers := OrderedCollection new: 2.
 ]
 
 { #category : #generated }
@@ -105,7 +105,7 @@ JavaConstructorDeclarationNode >> name: aJavaNameNode [
 
 { #category : #generated }
 JavaConstructorDeclarationNode >> nodeVariables [
-	^ #(#typeParameters #name #body #throws)
+	^ #(#typeParameters #name #throws #body)
 ]
 
 { #category : #generated }

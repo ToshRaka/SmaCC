@@ -44,7 +44,7 @@ JavaEnumConstantNode >> commas: anOrderedCollection [
 
 { #category : #generated }
 JavaEnumConstantNode >> compositeNodeVariables [
-	^ #(#annotations #declarations #expressions)
+	^ #(#annotations #expressions #declarations)
 ]
 
 { #category : #generated }
@@ -78,16 +78,16 @@ JavaEnumConstantNode >> ignoredCompositeTokenVariables [
 
 { #category : #generated }
 JavaEnumConstantNode >> ignoredTokenVariables [
-	^ #(#leftBrace #rightBrace #leftParen #rightParen)
+	^ #(#leftParen #rightParen #leftBrace #rightBrace)
 ]
 
 { #category : #'generated-initialize-release' }
 JavaEnumConstantNode >> initialize [
 	super initialize.
 	annotations := OrderedCollection new: 2.
-	declarations := OrderedCollection new: 2.
 	expressions := OrderedCollection new: 2.
 	commas := OrderedCollection new: 2.
+	declarations := OrderedCollection new: 2.
 ]
 
 { #category : #generated }

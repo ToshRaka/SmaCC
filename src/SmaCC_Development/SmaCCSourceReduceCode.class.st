@@ -10,8 +10,7 @@ Class {
 	#name : #SmaCCSourceReduceCode,
 	#superclass : #SmaCCReduceCode,
 	#instVars : [
-		'source',
-		'isImmediate'
+		'source'
 	],
 	#category : #'SmaCC_Development-Compilation Model'
 }
@@ -36,22 +35,6 @@ SmaCCSourceReduceCode >> basicModelTypes: aSet [
 		ifTrue: [ ^ self basicModelTypes: aSet forIndex: index ].
 	parseTree := RBParser parseExpression: self source onError: [ :e :p | ^ Array with: (self model classFor: Object) ].
 	^ self typesForTree: parseTree seen: aSet
-]
-
-{ #category : #'initialize-release' }
-SmaCCSourceReduceCode >> initialize [
-	super initialize.
-	isImmediate := false
-]
-
-{ #category : #accessing }
-SmaCCSourceReduceCode >> isImmediate [
-	^ isImmediate
-]
-
-{ #category : #accessing }
-SmaCCSourceReduceCode >> isImmediate: aBoolean [
-	isImmediate := aBoolean
 ]
 
 { #category : #accessing }

@@ -85,11 +85,6 @@ SmaCCNonTerminalSymbol >> returnsVariableCollection [
 ]
 
 { #category : #accessing }
-SmaCCNonTerminalSymbol >> ruleNumber [
-	^ position ifNil: [ 0 ]
-]
-
-{ #category : #accessing }
 SmaCCNonTerminalSymbol >> size [
 	^ productions size
 ]

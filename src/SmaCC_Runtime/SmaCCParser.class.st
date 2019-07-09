@@ -612,12 +612,10 @@ SmaCCParser >> performParsingLoop [
 ]
 
 { #category : #private }
-SmaCCParser >> performReduceEntry: entryArray with: items [
-	| symbol |
-	symbol := entryArray at: 3.
-	^ symbol last == $:
-		ifTrue: [ self perform: symbol with: items ]
-		ifFalse: [ self perform: symbol ]
+SmaCCParser >> performReduceMethod: aSymbol with: items [
+	^ aSymbol last == $:
+		ifTrue: [ self perform: aSymbol with: items ]
+		ifFalse: [ self perform: aSymbol ]
 ]
 
 { #category : #private }
@@ -642,10 +640,12 @@ SmaCCParser >> reduce: anInteger [
 	| reduceEntry items size |
 	reduceEntry := self reduceTable at: anInteger.
 	items := Array new: (size := reduceEntry at: 2).
-	size to: 1 by: -1 do: [ :i | 
+	size to: 1 by: -1 do:
+		[ :i | 
 		items at: i put: self popNodeStack.
 		stateStack removeLast ].
-	nodeStack addLast: (self performReduceEntry: reduceEntry with: items).
+	nodeStack
+		addLast: (self performReduceMethod: (reduceEntry at: 3) with: items).
 	stateStack
 		addLast: ((self actionFor: (reduceEntry at: 1)) bitShift: -2)
 ]

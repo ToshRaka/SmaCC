@@ -20,19 +20,25 @@ SmaCCNodeCalculation class >> compileForGrammar: aSmaCCGrammar [
 { #category : #private }
 SmaCCNodeCalculation >> calculateReduceActions [
 	variableSymbols
-		do: [ :each | 
+		do:
+			[ :each | 
 			each
-				productionsDo: [ :rhs | rhs reduceCode: (SmaCCVariableReduceCode onRHS: rhs) ] ].
+				productionsDo: [ :rhs | rhs reduceAction: (SmaCCVariableReduceCode onRHS: rhs) ] ].
 	singleVariableSymbols
-		do: [ :each | 
+		do:
+			[ :each | 
 			each
-				productionsDo: [ :rhs | rhs reduceCode: (SmaCCSingleVariableReduceCode onRHS: rhs) ] ].
+				productionsDo: [ :rhs | rhs reduceAction: (SmaCCSingleVariableReduceCode onRHS: rhs) ] ].
 	grammar
-		rhsDo: [ :each | 
+		rhsDo:
+			[ :each | 
 			each hasNodeClassDefinition
-				ifTrue: [ each reduceCode: (SmaCCCreateNodeReduceCode onRHS: each) ]
-				ifFalse: [ each hasReduceAction
-						ifFalse: [ each reduceCode: (SmaCCDefaultNodeReduceCode onRHS: each) ] ] ]
+				ifTrue: [ each
+						reduceAction: (SmaCCCreateNodeReduceCode onRHS: each) ]
+				ifFalse:
+					[ each hasReduceAction
+						ifFalse: [ each
+								reduceAction: (SmaCCDefaultNodeReduceCode onRHS: each) ] ] ]
 ]
 
 { #category : #private }

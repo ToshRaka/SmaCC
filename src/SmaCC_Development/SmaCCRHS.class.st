@@ -3,10 +3,10 @@ Class {
 	#superclass : #SmaCCGrammarItem,
 	#instVars : [
 		'collection',
+		'reduceAction',
 		'variableNameMap',
 		'nodeClassDefinition',
-		'productionSymbol',
-		'reduceCode'
+		'productionSymbol'
 	],
 	#category : #'SmaCC_Development-Model'
 }
@@ -160,7 +160,7 @@ SmaCCRHS >> hasNodeClassDefinition [
 
 { #category : #testing }
 SmaCCRHS >> hasReduceAction [
-	^ reduceCode hasReduceAction
+	^ reduceAction hasReduceAction
 ]
 
 { #category : #comparing }
@@ -177,7 +177,7 @@ SmaCCRHS >> indexOfVariable: aString [
 SmaCCRHS >> initialize [
 	super initialize.
 	collection := OrderedCollection new.
-	reduceCode := SmaCCDefaultReduceCode onRHS: self.
+	reduceAction := SmaCCDefaultReduceCode onRHS: self.
 	variableNameMap := Dictionary new
 ]
 
@@ -188,7 +188,7 @@ SmaCCRHS >> locallyDefinesVariable: aString [
 
 { #category : #accessing }
 SmaCCRHS >> modelTypes: anIdentitySet [
-	^ reduceCode modelTypes: anIdentitySet
+	^ reduceAction modelTypes: anIdentitySet
 ]
 
 { #category : #accessing }
@@ -220,34 +220,28 @@ SmaCCRHS >> productionSymbol [
 ]
 
 { #category : #'reduce actions' }
-SmaCCRHS >> reduceCode [
-	^ reduceCode
+SmaCCRHS >> reduceAction [
+	^ reduceAction
 ]
 
 { #category : #'reduce actions' }
-SmaCCRHS >> reduceCode: aSmaCCReduceCode [
-	reduceCode := aSmaCCReduceCode
+SmaCCRHS >> reduceAction: aSmaCCReduceCode [
+	reduceAction := aSmaCCReduceCode
 ]
 
 { #category : #'reduce actions' }
-SmaCCRHS >> reduceCodeSource: aString [
-	reduceCode := SmaCCSourceReduceCode onRHS: self source: aString
+SmaCCRHS >> reduceActionSource: aString [
+	reduceAction := SmaCCSourceReduceCode onRHS: self source: aString
 ]
 
 { #category : #testing }
 SmaCCRHS >> returnsSingleVariable [
-	^ reduceCode returnsSingleVariable
+	^ reduceAction returnsSingleVariable
 ]
 
 { #category : #testing }
 SmaCCRHS >> returnsVariableCollection [
-	^ reduceCode returnsVariableCollection
-]
-
-{ #category : #accessing }
-SmaCCRHS >> ruleNumber [
-	^ (productionSymbol ruleNumber bitShift: 10)
-		+ (productionSymbol positionOf: self)
+	^ reduceAction returnsVariableCollection
 ]
 
 { #category : #accessing }

@@ -45,7 +45,7 @@ JavaClassDeclarationNode >> commas: anOrderedCollection [
 
 { #category : #generated }
 JavaClassDeclarationNode >> compositeNodeVariables [
-	^ #(#declarations #interfaces #modifiers)
+	^ #(#modifiers #interfaces #declarations)
 ]
 
 { #category : #generated }
@@ -93,10 +93,10 @@ JavaClassDeclarationNode >> implementsToken: aSmaCCToken [
 { #category : #'generated-initialize-release' }
 JavaClassDeclarationNode >> initialize [
 	super initialize.
-	declarations := OrderedCollection new: 2.
+	modifiers := OrderedCollection new: 2.
 	interfaces := OrderedCollection new: 2.
 	commas := OrderedCollection new: 2.
-	modifiers := OrderedCollection new: 2.
+	declarations := OrderedCollection new: 2.
 ]
 
 { #category : #generated }
@@ -174,7 +174,7 @@ JavaClassDeclarationNode >> superclass: aJavaClassTypeNode [
 
 { #category : #generated }
 JavaClassDeclarationNode >> tokenVariables [
-	^ #(#classToken #name #implementsToken #extendsToken)
+	^ #(#classToken #name #extendsToken #implementsToken)
 ]
 
 { #category : #generated }

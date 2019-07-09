@@ -30,7 +30,7 @@ JavaAnnotationInterfaceNode >> atToken: aSmaCCToken [
 
 { #category : #generated }
 JavaAnnotationInterfaceNode >> compositeNodeVariables [
-	^ #(#declarations #modifiers)
+	^ #(#modifiers #declarations)
 ]
 
 { #category : #generated }
@@ -53,8 +53,8 @@ JavaAnnotationInterfaceNode >> ignoredTokenVariables [
 { #category : #'generated-initialize-release' }
 JavaAnnotationInterfaceNode >> initialize [
 	super initialize.
-	declarations := OrderedCollection new: 2.
 	modifiers := OrderedCollection new: 2.
+	declarations := OrderedCollection new: 2.
 ]
 
 { #category : #generated }

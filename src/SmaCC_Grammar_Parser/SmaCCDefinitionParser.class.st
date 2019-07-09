@@ -9,7 +9,7 @@ Class {
 
 { #category : #'generated-accessing' }
 SmaCCDefinitionParser class >> cacheId [
-	^'2019-05-29T14:51:29.92492+02:00'
+	^'2019-04-08T17:26:10.063789+02:00'
 ]
 
 { #category : #generated }
@@ -71,12 +71,6 @@ directives <annotate_tokens>
 directives <lr1>
 	: lr1
 	;
-directives <unicode>
-	: unicode
-	;
-directives <byte>
-	: byte
-	;
 <name> 
 	: (<isLetter> | _) (<isLetter> | _ | <isDigit>)*
 	;
@@ -101,9 +95,6 @@ directives parser <keyword>
 	;
 parser <code>
 	: \{ 
-	;
-parser <immediateCode>
-	: \[
 	;
 parser <variablename>
 	: \' <name> \' 
@@ -148,7 +139,7 @@ default parser <patternToken>
 	;
 
 %glr;
-%id <code> <immediateCode> <keyword> <symbolname> <tokenname> <variablename> <semicolon>
+%id <code> <keyword> <symbolname> <tokenname> <variablename> <semicolon>
 	<directive> <production> <classLeft> <classRight>;
 %left	""|"";
 %left ""("" <character> <backslashcharacter> <characterblock> <anycharacter> <tokenname> <symbolname> <directive>;
@@ -230,8 +221,6 @@ Directive
 	| IgnoredVariables
 	| AnnotateTokens
 	| LR1
-	| Unicode
-	| Byte
 	;
 StartDirective 
 	: {self scope: #directives. nil}
@@ -321,12 +310,6 @@ AnnotateTokens
 LR1
 	: <lr1> 'typeToken' {{FlagDirective}}
 	;
-Unicode
-	: <unicode> 'typeToken' {{FlagDirective}}
-	;
-Byte
-	: <byte> 'typeToken' {{FlagDirective}}
-	;
 # Scanner
 RegexRule 
 	: StartRegex <tokenname> 'name' <production> 'colon' Regex 'regex' EndRegex <semicolon> 'semicolon' {{TokenRule}}
@@ -379,7 +362,6 @@ ParserRules
 ParserRule 
 	: Terms {{ProductionExpression}}
 	| Terms <code> 'code' {{CodeProductionExpression}}
-	| Terms <immediateCode> 'code' {{CodeProductionExpression}}
 	| Terms <classLeft> 'left' <symbolname> 'classname' <classRight> 'right' {{ClassProductionExpression}}
 	| Terms <classLeft> 'left' <classRight> 'right' {{ClassProductionExpression}}
 	;
@@ -409,120 +391,87 @@ Term
 { #category : #generated }
 SmaCCDefinitionParser class >> reduceTable [
 ^#(
-	#(84 0 #reduceActionForStartRegex1: 5765121 false ) 
-	#(54 0 #reduceActionForStartDirective1: 3438593 false ) 
-	#(86 1 #liftFirstValue: 5855233 false ) 
-	#(94 0 #reduceActionForStartProduction1: 6817793 false ) 
-	#(48 1 #reduceActionForFile1: 2695169 false ) 
-	#(49 1 #reduceActionForRules1: 2735105 false ) 
-	#(50 1 #liftFirstValue: 2781188 false ) 
-	#(50 1 #liftFirstValue: 2781186 false ) 
-	#(50 1 #liftFirstValue: 2781187 false ) 
-	#(50 1 #liftFirstValue: 2781185 false ) 
-	#(51 1 #reduceActionForError2: 2850818 false ) 
-	#(49 2 #reduceActionForRules2: 2735106 false ) 
-	#(55 0 #reduceActionForEndDirective1: 3492865 false ) 
-	#(83 2 #reduceActionForRegexRule2: 5590018 false ) 
-	#(51 2 #reduceActionForError1: 2850817 false ) 
-	#(98 0 #reduceActionForTerms1: 7368705 false ) 
-	#(57 0 #reduceActionForTerms1: 3608577 false ) 
-	#(74 1 #reduceActionForGLR1: 4936705 false ) 
-	#(78 1 #reduceActionForGLR1: 5296129 false ) 
-	#(79 1 #reduceActionForGLR1: 5357569 false ) 
-	#(80 1 #reduceActionForGLR1: 5428225 false ) 
-	#(81 1 #reduceActionForGLR1: 5475329 false ) 
-	#(82 1 #reduceActionForGLR1: 5530625 false ) 
-	#(53 1 #liftFirstValue: 3118082 false ) 
-	#(53 1 #liftFirstValue: 3118081 false ) 
-	#(53 1 #liftFirstValue: 3118083 false ) 
-	#(53 1 #liftFirstValue: 3118084 false ) 
-	#(53 1 #liftFirstValue: 3118085 false ) 
-	#(53 1 #liftFirstValue: 3118086 false ) 
-	#(53 1 #liftFirstValue: 3118087 false ) 
-	#(53 1 #liftFirstValue: 3118088 false ) 
-	#(53 1 #liftFirstValue: 3118089 false ) 
-	#(53 1 #liftFirstValue: 3118090 false ) 
-	#(53 1 #liftFirstValue: 3118091 false ) 
-	#(53 1 #liftFirstValue: 3118092 false ) 
-	#(53 1 #liftFirstValue: 3118093 false ) 
-	#(53 1 #liftFirstValue: 3118094 false ) 
-	#(53 1 #liftFirstValue: 3118096 false ) 
-	#(53 1 #liftFirstValue: 3118095 false ) 
-	#(53 1 #liftFirstValue: 3118097 false ) 
-	#(53 1 #liftFirstValue: 3118098 false ) 
-	#(53 1 #liftFirstValue: 3118099 false ) 
-	#(53 1 #liftFirstValue: 3118100 false ) 
-	#(95 0 #reduceActionForEndDirective1: 6867969 false ) 
-	#(96 1 #reduceActionForParserRules2: 6917122 false ) 
-	#(97 1 #reduceActionForParserRule1: 7015425 false ) 
-	#(56 2 #reduceActionForScopesLine1: 3542017 false ) 
-	#(58 2 #reduceActionForScopesLine1: 3648513 false ) 
-	#(59 2 #reduceActionForRootClassLine1: 3724289 false ) 
-	#(64 2 #reduceActionForRootClassLine1: 4200449 false ) 
-	#(65 2 #reduceActionForRootClassLine1: 4282369 false ) 
-	#(101 1 #reduceActionForTerm2: 7742466 false ) 
-	#(101 1 #reduceActionForTerm3: 7742467 false ) 
-	#(101 1 #reduceActionForTerm1: 7742465 false ) 
-	#(101 1 #reduceActionForTerm4: 7742468 false ) 
-	#(66 2 #reduceActionForLeftLine1: 4364289 false ) 
-	#(69 1 #reduceActionForRules1: 4592641 false ) 
-	#(67 2 #reduceActionForLeftLine1: 4434945 false ) 
-	#(68 2 #reduceActionForLeftLine1: 4507649 false ) 
-	#(71 1 #reduceActionForRules1: 4711425 false ) 
-	#(70 2 #reduceActionForIdMethodLine1: 4651009 false ) 
-	#(73 1 #reduceActionForRules1: 4850689 false ) 
-	#(72 2 #reduceActionForStartLine1: 4777985 false ) 
-	#(75 2 #reduceActionForParserTypeLine1: 4983809 false ) 
-	#(92 1 #reduceActionForRegexTerm7: 6112263 false ) 
-	#(92 1 #reduceActionForRegexTerm2: 6112258 false ) 
-	#(92 1 #reduceActionForRegexTerm2: 6112260 false ) 
-	#(92 1 #reduceActionForRegexTerm6: 6112262 false ) 
-	#(92 1 #reduceActionForRegexTerm2: 6112257 false ) 
-	#(92 1 #reduceActionForRegexTerm2: 6112259 false ) 
-	#(85 0 #reduceActionForEndDirective1: 5811201 false ) 
-	#(87 1 #liftFirstValue: 5883905 false ) 
-	#(90 1 #liftFirstValue: 6012929 false ) 
-	#(97 2 #reduceActionForParserRule2: 7015426 false ) 
-	#(97 2 #reduceActionForParserRule2: 7015427 false ) 
-	#(98 2 #reduceActionForRules2: 7368706 false ) 
-	#(99 1 #liftFirstValue: 7410689 false ) 
-	#(100 1 #liftFirstValue: 7665665 false ) 
-	#(57 2 #reduceActionForRules2: 3608578 false ) 
-	#(63 0 #reduceActionForTerms1: 4149249 false ) 
-	#(62 0 #reduceActionForTerms1: 4100097 false ) 
-	#(69 2 #reduceActionForRules2: 4592642 false ) 
-	#(71 2 #reduceActionForRules2: 4711426 false ) 
-	#(73 2 #reduceActionForRules2: 4850690 false ) 
-	#(52 5 #reduceActionForDirectiveLine1: 2983937 false ) 
-	#(77 1 #reduceActionForRules1: 5204993 false ) 
-	#(76 3 #reduceActionForIgnoredVariables1: 5076993 false ) 
-	#(89 1 #reduceActionFor______barToken__ConcatenationRegex__item___1: 5943297 false ) 
-	#(87 2 #reduceActionForRegex2: 5883906 false ) 
-	#(92 2 #reduceActionForRegexTerm8: 6112264 false ) 
-	#(92 2 #reduceActionForRegexTerm8: 6112265 false ) 
-	#(92 2 #reduceActionForRegexTerm8: 6112266 false ) 
-	#(92 2 #reduceActionForRegexTerm8: 6112267 false ) 
-	#(90 2 #reduceActionForConcatenationRegex2: 6012930 false ) 
-	#(91 1 #reduceActionForRules1: 6066177 false ) 
-	#(96 3 #reduceActionForParserRules1: 6917121 false ) 
-	#(93 6 #reduceActionForProductionRule1: 6667265 false ) 
-	#(97 3 #reduceActionForParserRule5: 7015429 false ) 
-	#(99 2 #reduceActionForSpecialTerm4: 7410692 false ) 
-	#(99 2 #reduceActionForSpecialTerm4: 7410691 false ) 
-	#(99 2 #reduceActionForSpecialTerm4: 7410690 false ) 
-	#(100 2 #reduceActionForNamedTerm2: 7665666 false ) 
-	#(77 2 #reduceActionForRules2: 5204994 false ) 
-	#(92 3 #reduceActionForRegexTerm5: 6112261 false ) 
-	#(83 6 #reduceActionForRegexRule1: 5590017 false ) 
-	#(88 2 #reduceActionFor______barToken__ConcatenationRegex__item__1: 5943297 false ) 
-	#(89 2 #reduceActionFor______barToken__ConcatenationRegex__item___2: 5943298 false ) 
-	#(91 2 #reduceActionForRules2: 6066178 false ) 
-	#(99 3 #reduceActionForSpecialTerm5: 7410693 false ) 
-	#(97 4 #reduceActionForParserRule4: 7015428 false ) 
-	#(60 5 #reduceActionForSuperclassLine1: 3808257 false ) 
-	#(63 2 #reduceActionForRules2: 4149250 false ) 
-	#(61 5 #reduceActionForAttributesLine1: 3954689 false ) 
-	#(62 2 #reduceActionForRules2: 4100098 false )
+	#(79 0 #reduceActionForStartRegex1:) 
+	#(51 0 #reduceActionForStartDirective1:) 
+	#(81 1 #liftFirstValue:) 
+	#(89 0 #reduceActionForStartProduction1:) 
+	#(45 1 #reduceActionForFile1:) 
+	#(46 1 #reduceActionForRules1:) 
+	#(47 1 #liftFirstValue:) 
+	#(48 1 #reduceActionForError2:) 
+	#(46 2 #reduceActionForRules2:) 
+	#(52 0 #reduceActionForEndDirective1:) 
+	#(78 2 #reduceActionForRegexRule2:) 
+	#(48 2 #reduceActionForError1:) 
+	#(93 0 #reduceActionForTerms1:) 
+	#(54 0 #reduceActionForTerms1:) 
+	#(71 1 #reduceActionForGLR1:) 
+	#(75 1 #reduceActionForGLR1:) 
+	#(76 1 #reduceActionForGLR1:) 
+	#(77 1 #reduceActionForGLR1:) 
+	#(50 1 #liftFirstValue:) 
+	#(90 0 #reduceActionForEndDirective1:) 
+	#(91 1 #reduceActionForParserRules2:) 
+	#(92 1 #reduceActionForParserRule1:) 
+	#(53 2 #reduceActionForScopesLine1:) 
+	#(55 2 #reduceActionForScopesLine1:) 
+	#(56 2 #reduceActionForRootClassLine1:) 
+	#(61 2 #reduceActionForRootClassLine1:) 
+	#(62 2 #reduceActionForRootClassLine1:) 
+	#(96 1 #reduceActionForTerm2:) 
+	#(96 1 #reduceActionForTerm3:) 
+	#(96 1 #reduceActionForTerm1:) 
+	#(96 1 #reduceActionForTerm4:) 
+	#(63 2 #reduceActionForLeftLine1:) 
+	#(66 1 #reduceActionForRules1:) 
+	#(64 2 #reduceActionForLeftLine1:) 
+	#(65 2 #reduceActionForLeftLine1:) 
+	#(68 1 #reduceActionForRules1:) 
+	#(67 2 #reduceActionForIdMethodLine1:) 
+	#(70 1 #reduceActionForRules1:) 
+	#(69 2 #reduceActionForStartLine1:) 
+	#(72 2 #reduceActionForParserTypeLine1:) 
+	#(87 1 #reduceActionForRegexTerm7:) 
+	#(87 1 #reduceActionForRegexTerm2:) 
+	#(87 1 #reduceActionForRegexTerm6:) 
+	#(80 0 #reduceActionForEndDirective1:) 
+	#(82 1 #liftFirstValue:) 
+	#(85 1 #liftFirstValue:) 
+	#(92 2 #reduceActionForParserRule2:) 
+	#(93 2 #reduceActionForRules2:) 
+	#(94 1 #liftFirstValue:) 
+	#(95 1 #liftFirstValue:) 
+	#(54 2 #reduceActionForRules2:) 
+	#(60 0 #reduceActionForTerms1:) 
+	#(59 0 #reduceActionForTerms1:) 
+	#(66 2 #reduceActionForRules2:) 
+	#(68 2 #reduceActionForRules2:) 
+	#(70 2 #reduceActionForRules2:) 
+	#(49 5 #reduceActionForDirectiveLine1:) 
+	#(74 1 #reduceActionForRules1:) 
+	#(73 3 #reduceActionForIgnoredVariables1:) 
+	#(84 1 #reduceActionFor______barToken__ConcatenationRegex__item___1:) 
+	#(82 2 #reduceActionForRegex2:) 
+	#(87 2 #reduceActionForRegexTerm8:) 
+	#(85 2 #reduceActionForConcatenationRegex2:) 
+	#(86 1 #reduceActionForRules1:) 
+	#(91 3 #reduceActionForParserRules1:) 
+	#(88 6 #reduceActionForProductionRule1:) 
+	#(92 3 #reduceActionForParserRule4:) 
+	#(94 2 #reduceActionForSpecialTerm4:) 
+	#(95 2 #reduceActionForNamedTerm2:) 
+	#(74 2 #reduceActionForRules2:) 
+	#(87 3 #reduceActionForRegexTerm5:) 
+	#(78 6 #reduceActionForRegexRule1:) 
+	#(83 2 #reduceActionFor______barToken__ConcatenationRegex__item__1:) 
+	#(84 2 #reduceActionFor______barToken__ConcatenationRegex__item___2:) 
+	#(86 2 #reduceActionForRules2:) 
+	#(94 3 #reduceActionForSpecialTerm5:) 
+	#(92 4 #reduceActionForParserRule3:) 
+	#(57 5 #reduceActionForSuperclassLine1:) 
+	#(60 2 #reduceActionForRules2:) 
+	#(58 5 #reduceActionForAttributesLine1:) 
+	#(59 2 #reduceActionForRules2:)
 	).
 ]
 
@@ -553,174 +502,169 @@ SmaCCDefinitionParser class >> startingStateForRegexRule [
 
 { #category : #generated }
 SmaCCDefinitionParser class >> symbolNames [
-	^ #('"("' '")"' '"*"' '"+"' '"?"' '"|"' '<scopes>' '<excludes>' '<root>' '<hierarchy>' '<attributes>' '<prefix>' '<suffix>' '<left>' '<right>' '<nonassoc>' '<id>' '<start>' '<glr>' '<parserType>' '<ignorecase>' '<ignorevariables>' '<annotate_tokens>' '<lr1>' '<unicode>' '<byte>' '<whitespace>' '<tokenname>' '<symbolname>' '<keyword>' '<comment>' '<code>' '<immediateCode>' '<variablename>' '<production>' '<directive>' '<semicolon>' '<backslashcharacter>' '<characterblock>' '<repeat>' '<character>' '<anycharacter>' '<error>' '<classLeft>' '<classRight>' '<patternToken>' 'B e g i n' 'File' 'Rules' 'Rule' 'Error' 'DirectiveLine' 'Directive' 'StartDirective' 'EndDirective' 'ScopesLine' 'Scopes' 'ExcludeScopesLine' 'RootClassLine' 'SuperclassLine' 'AttributesLine' 'IvarList' 'ClassList' 'PrefixLine' 'SuffixLine' 'LeftLine' 'RightLine' 'NonAssociativeLine' 'TokenList' 'IdMethodLine' 'IdTokens' 'StartLine' 'StartingTokens' 'GLR' 'ParserTypeLine' 'IgnoredVariables' 'IgnoredVariableList' 'IgnoreCase' 'AnnotateTokens' 'LR1' 'Unicode' 'Byte' 'RegexRule' 'StartRegex' 'EndRegex' 'Symbol' 'Regex' '("|" ''barToken'' ConcatenationRegex ''item'')' '("|" ''barToken'' ConcatenationRegex ''item'')+' 'ConcatenationRegex' 'RegexTerm ''item'' +' 'RegexTerm' 'ProductionRule' 'StartProduction' 'EndProduction' 'ParserRules' 'ParserRule' 'Terms' 'SpecialTerm' 'NamedTerm' 'Term' 'E O F' 'error')
+	^ #('"("' '")"' '"*"' '"+"' '"?"' '"|"' '<scopes>' '<excludes>' '<root>' '<hierarchy>' '<attributes>' '<prefix>' '<suffix>' '<left>' '<right>' '<nonassoc>' '<id>' '<start>' '<glr>' '<parserType>' '<ignorecase>' '<ignorevariables>' '<annotate_tokens>' '<lr1>' '<whitespace>' '<tokenname>' '<symbolname>' '<keyword>' '<comment>' '<code>' '<variablename>' '<production>' '<directive>' '<semicolon>' '<backslashcharacter>' '<characterblock>' '<repeat>' '<character>' '<anycharacter>' '<error>' '<classLeft>' '<classRight>' '<patternToken>' 'B e g i n' 'File' 'Rules' 'Rule' 'Error' 'DirectiveLine' 'Directive' 'StartDirective' 'EndDirective' 'ScopesLine' 'Scopes' 'ExcludeScopesLine' 'RootClassLine' 'SuperclassLine' 'AttributesLine' 'IvarList' 'ClassList' 'PrefixLine' 'SuffixLine' 'LeftLine' 'RightLine' 'NonAssociativeLine' 'TokenList' 'IdMethodLine' 'IdTokens' 'StartLine' 'StartingTokens' 'GLR' 'ParserTypeLine' 'IgnoredVariables' 'IgnoredVariableList' 'IgnoreCase' 'AnnotateTokens' 'LR1' 'RegexRule' 'StartRegex' 'EndRegex' 'Symbol' 'Regex' '("|" ''barToken'' ConcatenationRegex ''item'')' '("|" ''barToken'' ConcatenationRegex ''item'')+' 'ConcatenationRegex' 'RegexTerm ''item'' +' 'RegexTerm' 'ProductionRule' 'StartProduction' 'EndProduction' 'ParserRules' 'ParserRule' 'Terms' 'SpecialTerm' 'NamedTerm' 'Term' 'E O F' 'error')
 ]
 
 { #category : #generated }
 SmaCCDefinitionParser class >> symbolTypes [
-	^ #(#SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCGrammarDefinitionNode #SmaCCGrammarDefinitionNode #OrderedCollection #SmaCCDefinitionNode #SmaCCDefinitionErrorNode #SmaCCDirectiveNode #SmaCCDirectiveNode nil nil #SmaCCScopeDirectiveNode #OrderedCollection #SmaCCScopeDirectiveNode #SmaCCNodeNameDirectiveNode #SmaCCSuperclassDirectiveNode #SmaCCAttributeDirectiveNode #OrderedCollection #OrderedCollection #SmaCCNodeNameDirectiveNode #SmaCCNodeNameDirectiveNode #SmaCCAssociativeDirectiveNode #SmaCCAssociativeDirectiveNode #SmaCCAssociativeDirectiveNode #OrderedCollection #SmaCCIdDirectiveNode #OrderedCollection #SmaCCStartDirectiveNode #OrderedCollection #SmaCCFlagDirectiveNode #SmaCCParserTypeDirectiveNode #SmaCCIgnoreVariableDirectiveNode #OrderedCollection #SmaCCFlagDirectiveNode #SmaCCFlagDirectiveNode #SmaCCFlagDirectiveNode #SmaCCFlagDirectiveNode #SmaCCFlagDirectiveNode #SmaCCTokenRuleNode nil nil #SmaCCToken #SmaCCRegexNode #OrderedCollection #OrderedCollection #SmaCCRegexNode #OrderedCollection #SmaCCRegexNode #SmaCCProductionRuleNode nil nil #OrderedCollection #SmaCCProductionExpressionNode #OrderedCollection #SmaCCDefinitionNode #SmaCCSymbolNode #SmaCCSymbolNode #SmaCCToken #SmaCCErrorNode)
+	^ #(#SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCGrammarDefinitionNode #SmaCCGrammarDefinitionNode #OrderedCollection #SmaCCDefinitionNode #SmaCCDefinitionErrorNode #SmaCCDirectiveNode #SmaCCDirectiveNode nil nil #SmaCCScopeDirectiveNode #OrderedCollection #SmaCCScopeDirectiveNode #SmaCCNodeNameDirectiveNode #SmaCCSuperclassDirectiveNode #SmaCCAttributeDirectiveNode #OrderedCollection #OrderedCollection #SmaCCNodeNameDirectiveNode #SmaCCNodeNameDirectiveNode #SmaCCAssociativeDirectiveNode #SmaCCAssociativeDirectiveNode #SmaCCAssociativeDirectiveNode #OrderedCollection #SmaCCIdDirectiveNode #OrderedCollection #SmaCCStartDirectiveNode #OrderedCollection #SmaCCFlagDirectiveNode #SmaCCParserTypeDirectiveNode #SmaCCIgnoreVariableDirectiveNode #OrderedCollection #SmaCCFlagDirectiveNode #SmaCCFlagDirectiveNode #SmaCCFlagDirectiveNode #SmaCCTokenRuleNode nil nil #SmaCCToken #SmaCCRegexNode #OrderedCollection #OrderedCollection #SmaCCRegexNode #OrderedCollection #SmaCCRegexNode #SmaCCProductionRuleNode nil nil #OrderedCollection #SmaCCProductionExpressionNode #OrderedCollection #SmaCCDefinitionNode #SmaCCSymbolNode #SmaCCSymbolNode #SmaCCToken #SmaCCErrorNode)
 ]
 
 { #category : #generated }
 SmaCCDefinitionParser class >> transitionTable [
 ^#(
-#[1 0 6 0 28 0 21 0 29 0 10 0 36 0 25 0 48 0 29 0 49 0 33 0 50 0 33 0 51 0 33 0 52 0 45 0 54 0 33 0 83 0 53 0 84 0 57 0 86 0 33 0 93 0 65 0 103] 
-#[1 0 69 0 29 0 73 0 93] 
-#[1 0 6 0 28 0 57 0 29 0 81 0 83 0 53 0 84 0 57 0 86] 
-#[1 0 10 0 36 0 85 0 52 0 45 0 54] 
-#[1 0 14 0 28 0 14 0 29 0 18 0 35 0 89 0 94] 
-#[0 0 0 0 102] 
-#[1 0 6 0 28 0 21 0 29 0 10 0 36 0 93 0 50 0 93 0 51 0 93 0 52 0 45 0 54 0 93 0 83 0 53 0 84 0 57 0 86 0 93 0 93 0 22 0 102 0 65 0 103] 
-#[0 0 26 0 28 0 29 0 36 0 102 0 103] 
-#[0 0 30 0 28 0 29 0 36 0 102 0 103] 
-#[0 0 34 0 28 0 29 0 36 0 102 0 103] 
-#[0 0 97 0 36] 
-#[0 0 38 0 28 0 29 0 36 0 102 0 103] 
-#[0 0 101 0 28] 
-#[1 0 6 0 28 0 57 0 29 0 105 0 83 0 53 0 84 0 57 0 86] 
-#[0 0 42 0 28 0 29 0 36 0 102 0 103] 
-#[1 0 46 0 28 0 46 0 29 0 46 0 36 0 109 0 37 0 46 0 102 0 46 0 103] 
-#[1 0 18 0 35 0 89 0 94] 
-#[0 0 0 0 102] 
-#[0 0 14 0 28 0 29 0 37] 
-#[0 0 0 0 102] 
-#[0 0 0 0 102] 
-#[0 0 113 0 35] 
-#[0 0 50 0 28 0 29 0 36 0 102 0 103] 
-#[1 0 117 0 7 0 121 0 8 0 125 0 9 0 129 0 10 0 133 0 11 0 137 0 12 0 141 0 13 0 145 0 14 0 149 0 15 0 153 0 16 0 157 0 17 0 161 0 18 0 165 0 19 0 169 0 20 0 173 0 21 0 54 0 22 0 177 0 23 0 181 0 24 0 185 0 25 0 189 0 26 0 193 0 53 0 197 0 55 0 193 0 56 0 193 0 58 0 193 0 59 0 193 0 60 0 193 0 61 0 193 0 64 0 193 0 65 0 193 0 66 0 193 0 67 0 193 0 68 0 193 0 70 0 193 0 72 0 193 0 74 0 193 0 75 0 193 0 76 0 193 0 78 0 193 0 79 0 193 0 80 0 193 0 81 0 193 0 82] 
-#[0 1 25 0 35] 
-#[0 0 58 0 28 0 29 0 36 0 102 0 103] 
-#[0 0 62 0 28 0 29 0 36 0 102 0 103] 
-#[1 0 66 0 1 0 66 0 6 0 66 0 28 0 66 0 29 0 66 0 30 0 66 0 32 0 66 0 33 0 66 0 37 0 66 0 43 0 66 0 44 1 29 0 96 1 33 0 97 1 37 0 98] 
-#[1 0 70 0 29 0 70 0 37 1 41 0 57] 
-#[1 0 70 0 29 0 70 0 37 1 45 0 57] 
-#[0 1 49 0 29] 
-#[0 1 53 0 29] 
-#[0 1 57 0 29] 
-#[0 1 61 0 29] 
-#[0 1 65 0 29] 
-#[1 1 69 0 28 1 73 0 29 1 77 0 30 1 81 0 43 1 85 0 69 1 89 0 101] 
-#[1 1 69 0 28 1 73 0 29 1 77 0 30 1 81 0 43 1 93 0 69 1 89 0 101] 
-#[1 1 69 0 28 1 73 0 29 1 77 0 30 1 81 0 43 1 97 0 69 1 89 0 101] 
-#[1 1 101 0 28 1 105 0 71] 
-#[1 1 109 0 29 1 113 0 73] 
-#[0 0 74 0 37] 
-#[0 1 117 0 29] 
-#[0 0 78 0 37] 
-#[0 0 82 0 37] 
-#[0 0 86 0 37] 
-#[0 0 90 0 37] 
-#[0 0 94 0 37] 
-#[1 0 54 0 37 1 121 0 55] 
-#[0 1 125 0 22] 
-#[0 0 98 0 37] 
-#[0 0 102 0 37] 
-#[0 0 106 0 37] 
-#[0 0 110 0 37] 
-#[0 0 114 0 37] 
-#[0 0 118 0 37] 
-#[0 0 122 0 37] 
-#[0 0 126 0 37] 
-#[0 0 130 0 37] 
-#[0 0 134 0 37] 
-#[0 0 138 0 37] 
-#[0 0 142 0 37] 
-#[0 0 146 0 37] 
-#[0 0 150 0 37] 
-#[0 0 154 0 37] 
-#[0 0 158 0 37] 
-#[0 0 162 0 37] 
-#[0 0 166 0 37] 
-#[0 0 170 0 37] 
-#[0 0 174 0 37] 
-#[1 1 129 0 1 1 133 0 28 1 137 0 36 1 141 0 38 1 145 0 39 1 149 0 41 1 153 0 42 1 157 0 87 1 161 0 90 1 165 0 92] 
-#[1 1 169 0 6 0 178 0 37 1 173 0 95] 
-#[0 0 182 0 2 0 6 0 37] 
-#[1 1 177 0 1 0 186 0 2 0 186 0 6 1 69 0 28 1 73 0 29 1 77 0 30 1 181 0 32 1 185 0 33 0 186 0 37 1 81 0 43 1 189 0 44 1 193 0 99 1 193 0 100 1 201 0 101] 
-#[1 1 205 0 29 0 190 0 37 1 205 0 86] 
-#[1 1 205 0 29 0 194 0 37 1 205 0 86] 
-#[0 0 198 0 37] 
-#[0 1 209 0 1] 
-#[0 1 213 0 1] 
-#[0 0 202 0 37] 
-#[0 0 206 0 37] 
-#[0 0 210 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 29 0 30 0 32 0 33 0 34 0 37 0 43 0 44] 
-#[0 0 214 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 29 0 30 0 32 0 33 0 34 0 37 0 43 0 44] 
-#[0 0 218 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 29 0 30 0 32 0 33 0 34 0 37 0 43 0 44] 
-#[0 0 222 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 29 0 30 0 32 0 33 0 34 0 37 0 43 0 44] 
-#[1 1 69 0 28 1 73 0 29 1 77 0 30 0 226 0 37 1 81 0 43 1 217 0 101] 
-#[0 0 230 0 28 0 29 0 30 0 37 0 43] 
-#[1 1 69 0 28 1 73 0 29 1 77 0 30 0 234 0 37 1 81 0 43 1 217 0 101] 
-#[1 1 69 0 28 1 73 0 29 1 77 0 30 0 238 0 37 1 81 0 43 1 217 0 101] 
-#[0 0 242 0 28 0 37] 
-#[1 1 221 0 28 0 246 0 37] 
-#[0 0 250 0 29 0 37] 
-#[1 1 225 0 29 0 254 0 37] 
-#[0 1 2 0 37] 
-#[0 1 229 0 37] 
-#[1 1 233 0 29 1 237 0 77] 
-#[1 1 129 0 1 1 133 0 28 1 137 0 36 1 141 0 38 1 145 0 39 1 149 0 41 1 153 0 42 1 241 0 87 1 161 0 90 1 165 0 92] 
-#[0 1 6 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 36 0 37 0 38 0 39 0 40 0 41 0 42] 
-#[0 1 10 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 36 0 37 0 38 0 39 0 40 0 41 0 42] 
-#[0 1 14 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 36 0 37 0 38 0 39 0 40 0 41 0 42] 
-#[0 1 18 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 36 0 37 0 38 0 39 0 40 0 41 0 42] 
-#[0 1 22 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 36 0 37 0 38 0 39 0 40 0 41 0 42] 
-#[0 1 26 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 36 0 37 0 38 0 39 0 40 0 41 0 42] 
-#[1 1 30 0 37 1 245 0 85] 
-#[1 1 34 0 2 1 249 0 6 1 34 0 37 1 253 0 88 2 1 0 89] 
-#[1 1 129 0 1 1 38 0 2 2 5 0 3 2 9 0 4 2 13 0 5 1 38 0 6 1 133 0 28 1 137 0 36 1 38 0 37 1 141 0 38 1 145 0 39 2 17 0 40 1 149 0 41 1 153 0 42 2 21 0 91 2 25 0 92] 
-#[1 0 66 0 1 0 66 0 2 0 66 0 6 0 66 0 28 0 66 0 29 0 66 0 30 0 66 0 32 0 66 0 33 0 66 0 37 0 66 0 43 0 66 0 44 2 29 0 97 1 37 0 98] 
-#[0 2 33 0 37] 
-#[1 0 66 0 1 0 66 0 2 0 66 0 6 0 66 0 28 0 66 0 29 0 66 0 30 0 66 0 32 0 66 0 33 0 66 0 43 0 66 0 44 2 37 0 96 1 33 0 97 1 37 0 98] 
-#[0 1 42 0 2 0 6 0 37] 
-#[0 1 46 0 2 0 6 0 37] 
-#[1 2 41 0 29 2 45 0 45] 
-#[1 1 50 0 1 1 50 0 2 2 49 0 3 2 53 0 4 2 57 0 5 1 50 0 6 1 50 0 28 1 50 0 29 1 50 0 30 1 50 0 32 1 50 0 33 1 50 0 37 1 50 0 43 1 50 0 44] 
-#[0 1 54 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 29 0 30 0 32 0 33 0 37 0 43 0 44] 
-#[1 1 58 0 1 1 58 0 2 1 58 0 3 1 58 0 4 1 58 0 5 1 58 0 6 1 58 0 28 1 58 0 29 1 58 0 30 1 58 0 32 1 58 0 33 2 61 0 34 1 58 0 37 1 58 0 43 1 58 0 44] 
-#[0 1 62 0 29 0 37] 
-#[1 1 66 0 2 1 66 0 29 2 65 0 63] 
-#[1 1 70 0 2 1 70 0 29 2 69 0 62] 
-#[0 1 74 0 28 0 29 0 30 0 37 0 43] 
-#[0 1 78 0 28 0 37] 
-#[0 1 82 0 29 0 37] 
-#[0 1 86 0 28 0 29 0 36 0 102 0 103] 
-#[0 1 90 0 29 0 37] 
-#[1 2 73 0 29 1 94 0 37] 
-#[0 2 77 0 2] 
-#[0 2 81 0 37] 
-#[1 1 129 0 1 1 133 0 28 1 137 0 36 1 141 0 38 1 145 0 39 1 149 0 41 1 153 0 42 2 85 0 90 1 165 0 92] 
-#[0 1 98 0 2 0 6 0 37] 
-#[1 1 102 0 2 1 249 0 6 1 102 0 37 2 89 0 88] 
-#[0 1 106 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 36 0 37 0 38 0 39 0 40 0 41 0 42] 
-#[0 1 110 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 36 0 37 0 38 0 39 0 40 0 41 0 42] 
-#[0 1 114 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 36 0 37 0 38 0 39 0 40 0 41 0 42] 
-#[0 1 118 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 36 0 37 0 38 0 39 0 40 0 41 0 42] 
-#[1 1 129 0 1 1 122 0 2 1 122 0 6 1 133 0 28 1 137 0 36 1 122 0 37 1 141 0 38 1 145 0 39 1 149 0 41 1 153 0 42 2 93 0 92] 
-#[1 1 126 0 1 1 126 0 2 2 5 0 3 2 9 0 4 2 13 0 5 1 126 0 6 1 126 0 28 1 126 0 36 1 126 0 37 1 126 0 38 1 126 0 39 2 17 0 40 1 126 0 41 1 126 0 42] 
-#[0 1 130 0 2 0 6 0 37] 
-#[0 1 134 0 28 0 29 0 36 0 102 0 103] 
-#[1 2 97 0 2 1 169 0 6] 
-#[0 2 101 0 45] 
-#[0 1 138 0 2 0 6 0 37] 
-#[0 1 142 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 29 0 30 0 32 0 33 0 37 0 43 0 44] 
-#[0 1 146 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 29 0 30 0 32 0 33 0 37 0 43 0 44] 
-#[0 1 150 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 29 0 30 0 32 0 33 0 37 0 43 0 44] 
-#[0 1 154 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 29 0 30 0 32 0 33 0 37 0 43 0 44] 
-#[1 2 105 0 2 2 109 0 29] 
-#[1 2 113 0 2 2 117 0 29] 
-#[0 1 158 0 29 0 37] 
-#[0 1 162 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 36 0 37 0 38 0 39 0 40 0 41 0 42] 
-#[0 1 166 0 28 0 29 0 36 0 102 0 103] 
-#[0 1 170 0 2 0 6 0 37] 
-#[0 1 174 0 2 0 6 0 37] 
-#[1 1 178 0 1 1 178 0 2 2 5 0 3 2 9 0 4 2 13 0 5 1 178 0 6 1 178 0 28 1 178 0 36 1 178 0 37 1 178 0 38 1 178 0 39 2 17 0 40 1 178 0 41 1 178 0 42] 
-#[0 1 182 0 1 0 2 0 3 0 4 0 5 0 6 0 28 0 29 0 30 0 32 0 33 0 37 0 43 0 44] 
-#[0 1 186 0 2 0 6 0 37] 
-#[0 1 190 0 37] 
-#[0 1 194 0 2 0 29] 
-#[0 1 198 0 37] 
-#[0 1 202 0 2 0 29]
+#[1 0 6 0 26 0 21 0 27 0 10 0 33 0 25 0 45 0 29 0 46 0 33 0 47 0 33 0 48 0 33 0 49 0 45 0 51 0 33 0 78 0 53 0 79 0 57 0 81 0 33 0 88 0 65 0 98] 
+#[1 0 69 0 27 0 73 0 88] 
+#[1 0 6 0 26 0 57 0 27 0 81 0 78 0 53 0 79 0 57 0 81] 
+#[1 0 10 0 33 0 85 0 49 0 45 0 51] 
+#[1 0 14 0 26 0 14 0 27 0 18 0 32 0 89 0 89] 
+#[0 0 0 0 97] 
+#[1 0 6 0 26 0 21 0 27 0 10 0 33 0 93 0 47 0 93 0 48 0 93 0 49 0 45 0 51 0 93 0 78 0 53 0 79 0 57 0 81 0 93 0 88 0 22 0 97 0 65 0 98] 
+#[0 0 26 0 26 0 27 0 33 0 97 0 98] 
+#[0 0 30 0 26 0 27 0 33 0 97 0 98] 
+#[0 0 30 0 26 0 27 0 33 0 97 0 98] 
+#[0 0 97 0 33] 
+#[0 0 30 0 26 0 27 0 33 0 97 0 98] 
+#[0 0 101 0 26] 
+#[1 0 6 0 26 0 57 0 27 0 105 0 78 0 53 0 79 0 57 0 81] 
+#[0 0 30 0 26 0 27 0 33 0 97 0 98] 
+#[1 0 34 0 26 0 34 0 27 0 34 0 33 0 109 0 34 0 34 0 97 0 34 0 98] 
+#[1 0 18 0 32 0 89 0 89] 
+#[0 0 0 0 97] 
+#[0 0 14 0 26 0 27 0 34] 
+#[0 0 0 0 97] 
+#[0 0 0 0 97] 
+#[0 0 113 0 32] 
+#[0 0 38 0 26 0 27 0 33 0 97 0 98] 
+#[1 0 117 0 7 0 121 0 8 0 125 0 9 0 129 0 10 0 133 0 11 0 137 0 12 0 141 0 13 0 145 0 14 0 149 0 15 0 153 0 16 0 157 0 17 0 161 0 18 0 165 0 19 0 169 0 20 0 173 0 21 0 42 0 22 0 177 0 23 0 181 0 24 0 185 0 50 0 189 0 52 0 185 0 53 0 185 0 55 0 185 0 56 0 185 0 57 0 185 0 58 0 185 0 61 0 185 0 62 0 185 0 63 0 185 0 64 0 185 0 65 0 185 0 67 0 185 0 69 0 185 0 71 0 185 0 72 0 185 0 73 0 185 0 75 0 185 0 76 0 185 0 77] 
+#[0 1 9 0 32] 
+#[0 0 46 0 26 0 27 0 33 0 97 0 98] 
+#[0 0 50 0 26 0 27 0 33 0 97 0 98] 
+#[1 0 54 0 1 0 54 0 6 0 54 0 26 0 54 0 27 0 54 0 28 0 54 0 30 0 54 0 34 0 54 0 40 0 54 0 41 1 13 0 91 1 17 0 92 1 21 0 93] 
+#[1 0 58 0 27 0 58 0 34 1 25 0 54] 
+#[1 0 58 0 27 0 58 0 34 1 29 0 54] 
+#[0 1 33 0 27] 
+#[0 1 37 0 27] 
+#[0 1 41 0 27] 
+#[0 1 45 0 27] 
+#[0 1 49 0 27] 
+#[1 1 53 0 26 1 57 0 27 1 61 0 28 1 65 0 40 1 69 0 66 1 73 0 96] 
+#[1 1 53 0 26 1 57 0 27 1 61 0 28 1 65 0 40 1 77 0 66 1 73 0 96] 
+#[1 1 53 0 26 1 57 0 27 1 61 0 28 1 65 0 40 1 81 0 66 1 73 0 96] 
+#[1 1 85 0 26 1 89 0 68] 
+#[1 1 93 0 27 1 97 0 70] 
+#[0 0 62 0 34] 
+#[0 1 101 0 27] 
+#[0 0 66 0 34] 
+#[0 0 70 0 34] 
+#[0 0 74 0 34] 
+#[1 0 42 0 34 1 105 0 52] 
+#[0 1 109 0 22] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[0 0 78 0 34] 
+#[1 1 113 0 1 1 117 0 26 1 121 0 33 1 125 0 35 1 129 0 36 1 133 0 38 1 137 0 39 1 141 0 82 1 145 0 85 1 149 0 87] 
+#[1 1 153 0 6 0 82 0 34 1 157 0 90] 
+#[0 0 86 0 2 0 6 0 34] 
+#[1 1 161 0 1 0 90 0 2 0 90 0 6 1 53 0 26 1 57 0 27 1 61 0 28 1 165 0 30 0 90 0 34 1 65 0 40 1 169 0 41 1 173 0 94 1 173 0 95 1 181 0 96] 
+#[1 1 185 0 27 0 94 0 34 1 185 0 81] 
+#[1 1 185 0 27 0 98 0 34 1 185 0 81] 
+#[0 0 102 0 34] 
+#[0 1 189 0 1] 
+#[0 1 193 0 1] 
+#[0 0 106 0 34] 
+#[0 0 110 0 34] 
+#[0 0 114 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 27 0 28 0 30 0 31 0 34 0 40 0 41] 
+#[0 0 118 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 27 0 28 0 30 0 31 0 34 0 40 0 41] 
+#[0 0 122 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 27 0 28 0 30 0 31 0 34 0 40 0 41] 
+#[0 0 126 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 27 0 28 0 30 0 31 0 34 0 40 0 41] 
+#[1 1 53 0 26 1 57 0 27 1 61 0 28 0 130 0 34 1 65 0 40 1 197 0 96] 
+#[0 0 134 0 26 0 27 0 28 0 34 0 40] 
+#[1 1 53 0 26 1 57 0 27 1 61 0 28 0 138 0 34 1 65 0 40 1 197 0 96] 
+#[1 1 53 0 26 1 57 0 27 1 61 0 28 0 142 0 34 1 65 0 40 1 197 0 96] 
+#[0 0 146 0 26 0 34] 
+#[1 1 201 0 26 0 150 0 34] 
+#[0 0 154 0 27 0 34] 
+#[1 1 205 0 27 0 158 0 34] 
+#[0 0 162 0 34] 
+#[0 1 209 0 34] 
+#[1 1 213 0 27 1 217 0 74] 
+#[1 1 113 0 1 1 117 0 26 1 121 0 33 1 125 0 35 1 129 0 36 1 133 0 38 1 137 0 39 1 221 0 82 1 145 0 85 1 149 0 87] 
+#[0 0 166 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 33 0 34 0 35 0 36 0 37 0 38 0 39] 
+#[0 0 170 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 33 0 34 0 35 0 36 0 37 0 38 0 39] 
+#[0 0 170 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 33 0 34 0 35 0 36 0 37 0 38 0 39] 
+#[0 0 174 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 33 0 34 0 35 0 36 0 37 0 38 0 39] 
+#[0 0 170 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 33 0 34 0 35 0 36 0 37 0 38 0 39] 
+#[0 0 170 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 33 0 34 0 35 0 36 0 37 0 38 0 39] 
+#[1 0 178 0 34 1 225 0 80] 
+#[1 0 182 0 2 1 229 0 6 0 182 0 34 1 233 0 83 1 237 0 84] 
+#[1 1 113 0 1 0 186 0 2 1 241 0 3 1 245 0 4 1 249 0 5 0 186 0 6 1 117 0 26 1 121 0 33 0 186 0 34 1 125 0 35 1 129 0 36 1 253 0 37 1 133 0 38 1 137 0 39 2 1 0 86 2 5 0 87] 
+#[1 0 54 0 1 0 54 0 2 0 54 0 6 0 54 0 26 0 54 0 27 0 54 0 28 0 54 0 30 0 54 0 34 0 54 0 40 0 54 0 41 2 9 0 92 1 21 0 93] 
+#[0 2 13 0 34] 
+#[1 0 54 0 1 0 54 0 2 0 54 0 6 0 54 0 26 0 54 0 27 0 54 0 28 0 54 0 30 0 54 0 40 0 54 0 41 2 17 0 91 1 17 0 92 1 21 0 93] 
+#[0 0 190 0 2 0 6 0 34] 
+#[1 2 21 0 27 2 25 0 42] 
+#[1 0 194 0 1 0 194 0 2 2 29 0 3 2 33 0 4 2 37 0 5 0 194 0 6 0 194 0 26 0 194 0 27 0 194 0 28 0 194 0 30 0 194 0 34 0 194 0 40 0 194 0 41] 
+#[0 0 198 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 27 0 28 0 30 0 34 0 40 0 41] 
+#[1 0 202 0 1 0 202 0 2 0 202 0 3 0 202 0 4 0 202 0 5 0 202 0 6 0 202 0 26 0 202 0 27 0 202 0 28 0 202 0 30 2 41 0 31 0 202 0 34 0 202 0 40 0 202 0 41] 
+#[0 0 206 0 27 0 34] 
+#[1 0 210 0 2 0 210 0 27 2 45 0 60] 
+#[1 0 214 0 2 0 214 0 27 2 49 0 59] 
+#[0 0 218 0 26 0 27 0 28 0 34 0 40] 
+#[0 0 222 0 26 0 34] 
+#[0 0 226 0 27 0 34] 
+#[0 0 230 0 26 0 27 0 33 0 97 0 98] 
+#[0 0 234 0 27 0 34] 
+#[1 2 53 0 27 0 238 0 34] 
+#[0 2 57 0 2] 
+#[0 2 61 0 34] 
+#[1 1 113 0 1 1 117 0 26 1 121 0 33 1 125 0 35 1 129 0 36 1 133 0 38 1 137 0 39 2 65 0 85 1 149 0 87] 
+#[0 0 242 0 2 0 6 0 34] 
+#[1 0 246 0 2 1 229 0 6 0 246 0 34 2 69 0 83] 
+#[0 0 250 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 33 0 34 0 35 0 36 0 37 0 38 0 39] 
+#[0 0 250 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 33 0 34 0 35 0 36 0 37 0 38 0 39] 
+#[0 0 250 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 33 0 34 0 35 0 36 0 37 0 38 0 39] 
+#[0 0 250 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 33 0 34 0 35 0 36 0 37 0 38 0 39] 
+#[1 1 113 0 1 0 254 0 2 0 254 0 6 1 117 0 26 1 121 0 33 0 254 0 34 1 125 0 35 1 129 0 36 1 133 0 38 1 137 0 39 2 73 0 87] 
+#[1 1 2 0 1 1 2 0 2 1 241 0 3 1 245 0 4 1 249 0 5 1 2 0 6 1 2 0 26 1 2 0 33 1 2 0 34 1 2 0 35 1 2 0 36 1 253 0 37 1 2 0 38 1 2 0 39] 
+#[0 1 6 0 2 0 6 0 34] 
+#[0 1 10 0 26 0 27 0 33 0 97 0 98] 
+#[1 2 77 0 2 1 153 0 6] 
+#[0 2 81 0 42] 
+#[0 1 14 0 2 0 6 0 34] 
+#[0 1 18 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 27 0 28 0 30 0 34 0 40 0 41] 
+#[0 1 18 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 27 0 28 0 30 0 34 0 40 0 41] 
+#[0 1 18 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 27 0 28 0 30 0 34 0 40 0 41] 
+#[0 1 22 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 27 0 28 0 30 0 34 0 40 0 41] 
+#[1 2 85 0 2 2 89 0 27] 
+#[1 2 93 0 2 2 97 0 27] 
+#[0 1 26 0 27 0 34] 
+#[0 1 30 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 33 0 34 0 35 0 36 0 37 0 38 0 39] 
+#[0 1 34 0 26 0 27 0 33 0 97 0 98] 
+#[0 1 38 0 2 0 6 0 34] 
+#[0 1 42 0 2 0 6 0 34] 
+#[1 1 46 0 1 1 46 0 2 1 241 0 3 1 245 0 4 1 249 0 5 1 46 0 6 1 46 0 26 1 46 0 33 1 46 0 34 1 46 0 35 1 46 0 36 1 253 0 37 1 46 0 38 1 46 0 39] 
+#[0 1 50 0 1 0 2 0 3 0 4 0 5 0 6 0 26 0 27 0 28 0 30 0 34 0 40 0 41] 
+#[0 1 54 0 2 0 6 0 34] 
+#[0 1 58 0 34] 
+#[0 1 62 0 2 0 27] 
+#[0 1 66 0 34] 
+#[0 1 70 0 2 0 27]
 	).
 ]
 
@@ -852,7 +796,7 @@ SmaCCDefinitionParser >> reduceActionForParserRule2: nodes [
 ]
 
 { #category : #'generated-reduction actions' }
-SmaCCDefinitionParser >> reduceActionForParserRule4: nodes [
+SmaCCDefinitionParser >> reduceActionForParserRule3: nodes [
 	| result |
 	result := SmaCCClassProductionExpressionNode new.
 	result addNodes: (nodes at: 1) to: result terms.
@@ -863,7 +807,7 @@ SmaCCDefinitionParser >> reduceActionForParserRule4: nodes [
 ]
 
 { #category : #'generated-reduction actions' }
-SmaCCDefinitionParser >> reduceActionForParserRule5: nodes [
+SmaCCDefinitionParser >> reduceActionForParserRule4: nodes [
 	| result |
 	result := SmaCCClassProductionExpressionNode new.
 	result addNodes: (nodes at: 1) to: result terms.

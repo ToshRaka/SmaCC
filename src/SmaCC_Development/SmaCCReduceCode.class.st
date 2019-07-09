@@ -64,11 +64,6 @@ SmaCCReduceCode >> hash [
 	^ self class hash bitXor: self rhs hash
 ]
 
-{ #category : #testing }
-SmaCCReduceCode >> isImmediate [
-	^ false
-]
-
 { #category : #accessing }
 SmaCCReduceCode >> model [
 	^ rhs model

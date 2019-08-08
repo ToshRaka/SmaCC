@@ -403,10 +403,7 @@ SmaCCFGLRParser >> performActionForMetavariable: anAction [
 		ifFalse: [ | nextType |
 			fiber stateStack addLast: (anAction bitShift: -2).
 			fiber nodeStack
-				addLast:
-					(RfgMetavariableNode
-						identifier: fiber currentToken identifier
-						type: currentType).
+				addLast: (fiber currentToken asNodeWithType: currentType).
 			nextType := fiber currentToken type next.
 			nextType 
 				ifNil: [ fiber currentToken: nil ]
